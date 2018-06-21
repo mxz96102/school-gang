@@ -9,7 +9,9 @@
       <form action="">
         <input type="text" placeholder="用户名"><br>
         <input type="password" placeholder="密码"><br>
-        <p><router-link to="register">注册账号</router-link></p>
+        <p>
+          <router-link to="register">注册账号</router-link>
+        </p>
         <input type="submit" value="登陆">
       </form>
     </div>
@@ -47,7 +49,7 @@ export default {
     overflow: hidden;
   }
 
-  .login .banner img{
+  .login .banner img {
     width: 625px;
     height: auto;
   }
@@ -85,7 +87,7 @@ export default {
     padding-right: 10%;
   }
 
-  .login .panel p a{
+  .login .panel p a {
     font-weight: bolder;
     text-decoration: none;
     color: #726dd1;

@@ -9,18 +9,36 @@
         <router-link to="" class="publish">发布项目</router-link>
       </div>
     </nav>
-    <SearchBox></SearchBox>
+    <SearchBox />
+    <Contents v-bind:contents="talents" />
+    <Contents v-bind:contents="projects" />
   </div>
 </template>
 
 <script>
-import SearchBox from './SearchBox'
+import SearchBox from './Index/SearchBox'
+import Contents from './Index/Contents'
+import fetcher from '../request'
 
 export default {
   name: 'Index',
-  components: {SearchBox},
+  components: {SearchBox, Contents},
   data () {
-    return {}
+    // const data = fetcher.getAll(true).then()
+    return {
+      isMounted: false,
+      msg: 'loading',
+      talents: null,
+      projects: null
+    }
+  },
+  mounted () {
+    fetcher.getAll(true).then(data => {
+      this.talents = data.talents
+      this.projects = data.projects
+    }).catch(e => {
+      this.msg = e.toString()
+    })
   }
 }
 </script>

@@ -1,17 +1,25 @@
 <template>
   <div class="search-box">
     <div class="tab">
-      <div @click="() => searchMod = true" :class="searchMod ? 'select' : ''">搜索项目</div>
-      <div @click="() => searchMod = false" :class="searchMod ? '' : 'select'">搜索人才</div>
+      <div @click="() => searchProject = true" :class="searchProject ? 'select' : ''">搜索项目</div>
+      <div @click="() => searchProject = false" :class="searchProject ? '' : 'select'">搜索人才</div>
     </div>
-    <section v-if="searchMod">
-      <div class="box"><input type="text"><button>搜索</button></div>
+    <section v-if="searchProject">
+      <div class="box"><label>
+        <input type="text">
+      </label>
+        <button>搜索</button>
+      </div>
       <div class="label-box">
         <span></span>
       </div>
     </section>
-    <section v-if="!searchMod">
-      <div class="box"><input type="text"><button>搜索</button></div>
+    <section v-if="!searchProject">
+      <div class="box"><label>
+        <input type="text">
+      </label>
+        <button>搜索</button>
+      </div>
     </section>
     <article>
 
@@ -24,7 +32,8 @@ export default {
   name: 'SearchBox',
   data () {
     return {
-      searchMod: true,
+      // mode is project
+      searchProject: true,
       projectBox: ['品牌设计', '游戏原画', '短视频制作', '网页设计', '游戏开发', '网页开发'],
       humanBox: []
     }
