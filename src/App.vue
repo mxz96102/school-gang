@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -11,30 +11,41 @@ export default {
 </script>
 
 <style>
-html,body {
-  padding: 0;
-  margin: 0;
-  background: #e6ecf0;
-}
+  @import "../node_modules/vue-material/dist/vue-material.min.css";
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  html, body {
+    padding: 0;
+    margin: 0;
+    background: #e6ecf0;
+  }
 
-.flex {
-  flex: 1;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-img.logo {
-  height: 50px;
-  width: auto;
-}
+  .flex {
+    flex: 1;
+  }
 
-a {
-  text-decoration: none;
-  color: #060c7a;
-  margin: 0 10px;
-}
+  img.logo {
+    height: 50px;
+    width: auto;
+  }
+
+  a {
+    text-decoration: none;
+    color: #060c7a;
+    margin: 0 10px;
+  }
+
+  .md-button.md-active {
+    color: #7d7d7d;
+  }
+
+  .md-button {
+    font-weight: bold;
+    color: #aaaaaa;
+  }
 </style>

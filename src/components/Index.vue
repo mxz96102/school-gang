@@ -10,8 +10,8 @@
       </div>
     </nav>
     <SearchBox />
-    <Contents v-bind:contents="talents" />
-    <Contents v-bind:contents="projects" />
+    <Contents v-bind:contents="talents" type="talent" />
+    <Contents v-bind:contents="projects" type="project" />
   </div>
 </template>
 
@@ -33,12 +33,14 @@ export default {
     }
   },
   mounted () {
-    fetcher.getAll(true).then(data => {
-      this.talents = data.talents
-      this.projects = data.projects
-    }).catch(e => {
-      this.msg = e.toString()
-    })
+    fetcher.getAll()
+      .then(data => {
+        this.talents = data.talents
+        this.projects = data.projects
+      })
+      .catch(e => {
+        this.msg = e.toString()
+      })
   }
 }
 </script>

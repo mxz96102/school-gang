@@ -15,14 +15,15 @@ export default {
         talents: {
           title: '按专业找zz',
           more: '#',
-          categories: Array.from(new Array(8)).map(() => ({
-            subcategories: Array.from(new Array(8)).map(() => ({
-              type: casual.title,
+          categories: Array.from(new Array(2)).map(() => ({
+            title: casual.title,
+            subcategories: Array.from(new Array(4)).map(() => ({
+              title: casual.title,
               contents: Array.from(new Array(6)).map(() => ({
                 name: casual.first_name,
                 skills: casual.array_of_words(casual.integer(0, 3)),
                 experience: casual.integer(2, 7),
-                img: randomImg(casual.integer(0, 10))
+                img: randomImg(casual.integer(0, 2))
               }))
             }))
           }))
@@ -30,13 +31,14 @@ export default {
         projects: {
           title: '项目zz',
           more: '#',
-          categories: Array.from(new Array(8)).map(() => ({
-            subcategories: Array.from(new Array(8)).map(() => ({
-              type: casual.title,
+          categories: Array.from(new Array(2)).map(() => ({
+            title: casual.title,
+            subcategories: Array.from(new Array(4)).map(() => ({
+              title: casual.title,
               contents: Array.from(new Array(6)).map(() => ({
                 name: casual.title,
                 detail: casual.sentence,
-                img: randomImg(casual.integer(0, 10))
+                img: randomImg(casual.integer(0, 2))
               }))
             }))
           }))

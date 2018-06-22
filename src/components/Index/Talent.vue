@@ -1,23 +1,32 @@
 <template>
-  <div class="project">
-    <img src={{this.img}}>
-    <h3>{{this.name}}</h3>
-    <p><span>技能</span>{{this.skills}}</p>
-    <p><span>项目</span>{{this.experience}}次</p>
+  <div v-if="content" class="talent">
+    <img :src="img">
+    <h3>{{name}}</h3>
+    <p><span>技能</span>{{skills.slice(0, 3).join(' ')}}</p>
+    <p><span>项目</span>{{experience}}次</p>
   </div>
+  <div v-else>LOADING~</div>
 </template>
 
 <script>
 export default {
   name: 'Talent',
-  props: ['talent'],
+  props: ['content'],
   data () {
-    const {name, skills, experience, img} = this.talent
-    return {
-      name,
-      skills,
-      experience,
-      img
+    return {}
+  },
+  computed: {
+    name () {
+      return this.content.name
+    },
+    skills () {
+      return this.content.skills
+    },
+    experience () {
+      return this.content.experience
+    },
+    img () {
+      return this.content.img
     }
   }
 }

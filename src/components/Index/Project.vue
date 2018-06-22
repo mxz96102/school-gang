@@ -1,21 +1,28 @@
 <template>
-  <div class="project">
-    <img src={{this.img}}>
-    <h3>{{this.name}}</h3>
-    <p>{{this.detail}}</p>
+  <div v-if="content" class="project">
+    <img :src="img">
+    <h3>{{name}}</h3>
+    <p>{{detail}}</p>
   </div>
+  <div v-else>LOADING~</div>
 </template>
 
 <script>
 export default {
   name: 'Project',
-  props: ['project'],
+  props: ['content'],
   data () {
-    const {img, name, detail} = this.project
-    return {
-      img,
-      name,
-      detail
+    return {}
+  },
+  computed: {
+    img () {
+      return this.content.img
+    },
+    name () {
+      return this.content.name
+    },
+    detail () {
+      return this.content.detail
     }
   }
 }
