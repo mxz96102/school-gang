@@ -1,17 +1,16 @@
 <template>
-  <div class="hello">
-  </div>
+  <div>LOADING~</div>
 </template>
 
 <script>
 export default {
-  name: '',
+  name: 'Loading',
   data () {
     return {}
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 </style>

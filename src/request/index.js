@@ -16,10 +16,13 @@ export default {
           title: '按专业找zz',
           more: '#',
           categories: Array.from(new Array(2)).map(() => ({
+            uid: casual.uuid,
             title: casual.title,
             subcategories: Array.from(new Array(4)).map(() => ({
+              uid: casual.uuid,
               title: casual.title,
               contents: Array.from(new Array(6)).map(() => ({
+                uid: casual.uuid,
                 name: casual.first_name,
                 skills: casual.array_of_words(casual.integer(0, 3)),
                 experience: casual.integer(2, 7),
@@ -32,10 +35,13 @@ export default {
           title: '项目zz',
           more: '#',
           categories: Array.from(new Array(2)).map(() => ({
+            uid: casual.uuid,
             title: casual.title,
             subcategories: Array.from(new Array(4)).map(() => ({
+              uid: casual.uuid,
               title: casual.title,
               contents: Array.from(new Array(6)).map(() => ({
+                uid: casual.uuid,
                 name: casual.title,
                 detail: casual.sentence,
                 img: randomImg(casual.integer(0, 2))
@@ -48,6 +54,51 @@ export default {
         resolve(facked)
       } else {
         reject(new Error('502'))
+      }
+    })
+  },
+  getProjectDetail (uid) {
+    let requestSuccess = arguments[arguments.length - 1]
+    requestSuccess = typeof requestSuccess === 'boolean' ? requestSuccess : true
+    return new Promise((resolve, reject) => {
+      if (requestSuccess) {
+        resolve({
+          uid,
+          parents: {
+            category: {
+              name: casual.title,
+              uid: casual.uuid
+            },
+            subcategory: {
+              name: casual.title,
+              uid: casual.uuid
+            }
+          },
+          from: casual.name,
+          ddl: casual.moment,
+          needs: [
+            {
+              name: 'UI射击石',
+              number: 2,
+              uid: casual.uuid
+            },
+            {
+              name: 'UI射击水',
+              number: 0,
+              uid: casual.uuid
+            },
+            {
+              name: 'UI射击木头',
+              number: 5,
+              uid: casual.uuid
+            }
+          ],
+          name: casual.title,
+          detail: casual.sentence,
+          img: randomImg(casual.integer(0, 2))
+        })
+      } else {
+        reject(new Error('404'))
       }
     })
   }

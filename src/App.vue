@@ -48,4 +48,14 @@ export default {
     font-weight: bold;
     color: #aaaaaa;
   }
+
+  .black {
+    background-color: #252525;
+    color: #252525;
+  }
+
+  .black:hover {
+    transition: color .13s linear;
+    color: white;
+  }
 </style>
