@@ -6,9 +6,9 @@
     </div>
     <section v-if="searchProject">
       <div class="box"><label>
-        <input type="text">
+        <input v-model="projectFilter" type="text">
       </label>
-        <button>搜索</button>
+        <button @click="() => $router.push(`/projects/ff/dd`)">搜索</button>
       </div>
       <div class="label-box">
         <span></span>
@@ -16,9 +16,9 @@
     </section>
     <section v-if="!searchProject">
       <div class="box"><label>
-        <input type="text">
+        <input v-model="talentFilter" type="text">
       </label>
-        <button>搜索</button>
+        <button @click="() => $router.push(`/projects/ff/dd`)">搜索</button>
       </div>
     </section>
     <article>
@@ -32,6 +32,8 @@ export default {
   name: 'SearchBox',
   data () {
     return {
+      projectFilter: '',
+      talentFilter: '',
       // mode is project
       searchProject: true,
       projectBox: ['品牌设计', '游戏原画', '短视频制作', '网页设计', '游戏开发', '网页开发'],
