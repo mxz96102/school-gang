@@ -27,12 +27,10 @@ const faked = type => {
       uid: casual.uuid,
       parents: {
         category: {
-          name: casual.title,
-          uid: casual.uuid
+          name: casual.title
         },
         subcategory: {
-          name: casual.title,
-          uid: casual.uuid
+          name: casual.title
         }
       },
       from: casual.name,
@@ -70,10 +68,8 @@ export default {
           title: '按专业找zz',
           more: '#',
           categories: Array.from(new Array(2)).map(() => ({
-            uid: casual.uuid,
             title: casual.title,
             subcategories: Array.from(new Array(4)).map(() => ({
-              uid: casual.uuid,
               title: casual.title,
               contents: Array.from(new Array(6)).map(() => (faked('user')))
             }))
@@ -83,10 +79,8 @@ export default {
           title: '项目zz',
           more: '#',
           categories: Array.from(new Array(2)).map(() => ({
-            uid: casual.uuid,
             title: casual.title,
             subcategories: Array.from(new Array(4)).map(() => ({
-              uid: casual.uuid,
               title: casual.title,
               contents: Array.from(new Array(6)).map(() => (faked('project')))
             }))
@@ -157,7 +151,7 @@ export default {
     })
   },
   // should get user from session
-  applyProject (projectID) {
+  applyProject (projectID, needsID) {
     return new Promise((resolve, reject) => {
       resolve({
         msg: 'success'
