@@ -12,7 +12,7 @@ const faked = type => {
   return type === 'user'
     ? {
       uid: casual.uuid,
-      name: casual.first_name,
+      name: casual.full_name,
       skills: casual.array_of_words(casual.integer(0, 3)),
       experience: Array.from(new Array(casual.integer(2, 7))).map(() => ({
         projectID: casual.uuid,
@@ -165,7 +165,7 @@ export default {
       })
     })
   },
-  loginWithToken (token) {
+  loginWithToken () {
     return new Promise((resolve, reject) => {
       resolve({
         token: 'newfuck',
