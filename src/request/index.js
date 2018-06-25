@@ -13,7 +13,6 @@ const faked = type => {
     ? {
       uid: casual.uuid,
       name: casual.first_name,
-      ddl: casual.moment,
       skills: casual.array_of_words(casual.integer(0, 3)),
       experience: Array.from(new Array(casual.integer(2, 7))).map(() => ({
         projectID: casual.uuid,
@@ -27,10 +26,10 @@ const faked = type => {
       uid: casual.uuid,
       parents: {
         category: {
-          name: casual.title
+          name: casual.word
         },
         subcategory: {
-          name: casual.title
+          name: casual.word
         }
       },
       from: casual.name,
@@ -68,9 +67,9 @@ export default {
           title: '按专业找zz',
           more: '#',
           categories: Array.from(new Array(2)).map(() => ({
-            title: casual.title,
+            title: casual.word,
             subcategories: Array.from(new Array(4)).map(() => ({
-              title: casual.title,
+              title: casual.word,
               contents: Array.from(new Array(6)).map(() => (faked('user')))
             }))
           }))
@@ -79,9 +78,9 @@ export default {
           title: '项目zz',
           more: '#',
           categories: Array.from(new Array(2)).map(() => ({
-            title: casual.title,
+            title: casual.word,
             subcategories: Array.from(new Array(4)).map(() => ({
-              title: casual.title,
+              title: casual.word,
               contents: Array.from(new Array(6)).map(() => (faked('project')))
             }))
           }))

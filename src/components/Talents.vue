@@ -6,18 +6,8 @@
 </template>
 
 <script>
-import fetcher from '../request'
-
 export default {
-  name: 'Projects',
-  mounted () {
-    fetcher
-      .getAll()
-      .then(data => {
-      })
-      .catch(e => {
-      })
-  },
+  name: 'Talents',
   data () {
     return {}
   }

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <router-link v-bind:to="`/projects/${category.uid}/all`">{{category.name}}</router-link>
+    <span>{{category.name}}</span>
     >
-    <router-link v-bind:to="`/projects/${category.uid}/${subcategory.uid}`">{{subcategory.name}}</router-link>
+    <router-link :to="`/projects/${subcategory.name}`">{{subcategory.name}}</router-link>
   </div>
 </template>
 

@@ -36,23 +36,9 @@ export default {
   },
   methods: {
     handleSearch () {
-      const searchSrc = this.searchProject ? this.projectCategories : this.talentCategories
+      const type = this.searchProject ? 'projects' : 'talents'
       const keyword = this.searchProject ? this.projectFilter : this.talentFilter
-      const routeGenerator = (cate, sub) => `/${this.searchProject ? 'projects' : 'talents'}/${cate}/${sub}`
-      const filterToArray = _cate => {
-        return _cate.map(c => c.title)
-          .filter(t => t.includes(keyword))
-          .map(t => ({
-            text: `${t} > all`,
-            link: routeGenerator(t, 'all')
-          }))
-      }
-      // this.$router.push(routeGenerator.apply(this, (cate => )(searchSrc)))
-      console.log(routeGenerator.apply(this, (
-        cate => {
-          return filterToArray(cate).concat(filterToArray(cate.subcategories))
-        }
-      )(searchSrc)))
+      this.$router.push(`/${type}/${keyword}`)
     }
   },
   data () {

@@ -35,8 +35,14 @@ export default {
   mounted () {
     fetcher.getAll()
       .then(data => {
-        this.talents = data.talents
-        this.projects = data.projects
+        this.talents = {
+          ...data.talents,
+          more: '/talents/'
+        }
+        this.projects = {
+          ...data.projects,
+          more: '/projects/'
+        }
       })
       .catch(e => {
         this.msg = e.toString()

@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import ProjectDetail from '@/components/ProjectDetail'
 import Projects from '@/components/Projects'
+import Talents from '@/components/Talents'
 import Error from '@/components/Error'
 
 Vue.use(Router)
@@ -37,9 +38,14 @@ export default new Router({
       component: Error
     },
     {
-      path: '/projects/:cateID/:subcateID',
+      path: '/projects/:keyword',
       name: 'Projects',
       component: Projects
+    },
+    {
+      path: '/talents/:keyword',
+      name: 'Talents',
+      component: Talents
     }
   ]
 })
