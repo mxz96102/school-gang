@@ -12,11 +12,11 @@ export default {
 
 <style>
   @import "../node_modules/vue-material/dist/vue-material.min.css";
+  @import '../node_modules/vue-material/dist/theme/default.css';
 
   html, body {
     padding: 0;
     margin: 0;
-    background: #e6ecf0;
   }
 
   #app {

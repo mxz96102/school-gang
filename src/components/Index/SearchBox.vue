@@ -64,7 +64,6 @@ export default {
 
   .search-box .tab {
     width: 100%;
-    height: 3rem;
     display: flex;
     align-items: center;
     background: #726dd1;
@@ -74,9 +73,7 @@ export default {
   }
 
   .search-box .tab div {
-    width: 50%;
     text-align: center;
-    height: 3rem;
     line-height: 3rem;
   }
 
@@ -88,18 +85,20 @@ export default {
   .search-box section {
     min-height: 10rem;
     padding: 3rem;
+    box-sizing: border-box;
   }
 
   .search-box section .box {
     text-align: center;
     display: flex;
+    width: 100%;
     margin: 0 auto;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
   }
 
   .search-box section .box input {
-    width: 25rem;
     height: 3rem;
     border: #060c7a solid 2px;
     box-sizing: border-box;
@@ -115,5 +114,9 @@ export default {
     padding: 0 1rem;
     font-size: 1.2rem;
     cursor: pointer;
+  }
+
+  .md-tab {
+    padding: 0;
   }
 </style>

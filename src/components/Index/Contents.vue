@@ -1,12 +1,12 @@
 <template>
   <div class="contents">
     <h2>{{contents && contents.title}}</h2>
-    <a v-bind:href="contents && contents.more">More</a>
+    <router-link :to="contents && contents.more">更多</router-link>
     <div>
-      <md-tabs ref="outerTabs" :md-active-tab="type + '-0-outer'">
+      <md-tabs class="md-primary" md-alignment="centered" ref="outerTabs" :md-active-tab="type + '-0-outer'">
         <md-tab v-for="(cate, i) in this.categories" :id="`${type}-${i}-outer`" :key="i"
                 :md-label="cate.title">
-          <md-tabs>
+          <md-tabs class="md-primary" md-alignment="centered">
             <md-tab v-for="(sub, i) in cate.subcategories" :key="i" :md-label="sub.title">
               <Talent v-if="type === 'talent'" v-for="(content, i) in sub.contents" :content="content" :key="i" />
               <Project v-if="type !== 'talent'" v-for="(content, i) in sub.contents" :content="content" :key="i" />
@@ -44,4 +44,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .contents {
+    width: 80%;
+    margin: 3rem auto;
+    text-align: center;
+  }
+
+  .md-tab {
+    padding: 0 0;
+    background: #e6ecf0;
+  }
+
+  .md-tab .md-tab {
+    padding: 1rem;
+  }
 </style>
