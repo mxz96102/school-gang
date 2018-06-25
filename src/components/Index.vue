@@ -9,7 +9,7 @@
         <router-link to="" class="publish">发布项目</router-link>
       </div>
     </nav>
-    <SearchBox />
+    <SearchBox :project-categories="projects" :talent-categories="talents" />
     <Contents :contents="talents" type="talent" />
     <Contents :contents="projects" type="project" />
   </div>

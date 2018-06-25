@@ -3,7 +3,7 @@
     <img :src="img">
     <h3>{{name}}</h3>
     <p><span>技能</span>{{skills.slice(0, 3).join(' ')}}</p>
-    <p><span>项目</span>{{experience}}次</p>
+    <p><span>项目</span>{{experience.length}}个</p>
   </div>
   <div v-else>LOADING~</div>
 </template>

@@ -16,7 +16,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import Talent from '@/components/Index/Talent'
 import Project from '@/components/Index/Project'

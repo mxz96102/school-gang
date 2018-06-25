@@ -8,7 +8,7 @@
       <div class="box"><label>
         <input v-model="projectFilter" type="text">
       </label>
-        <button @click="() => $router.push(`/projects/ff/dd`)">搜索</button>
+        <button @click="handleSearch">搜索</button>
       </div>
       <div class="label-box">
         <span></span>
@@ -18,7 +18,7 @@
       <div class="box"><label>
         <input v-model="talentFilter" type="text">
       </label>
-        <button @click="() => $router.push(`/projects/ff/dd`)">搜索</button>
+        <button @click="handleSearch">搜索</button>
       </div>
     </section>
     <article>
@@ -30,14 +30,37 @@
 <script>
 export default {
   name: 'SearchBox',
+  props: {
+    projectCategories: Array.of(Object) || null,
+    talentCategories: Array.of(Object) || null
+  },
+  methods: {
+    handleSearch () {
+      const searchSrc = this.searchProject ? this.projectCategories : this.talentCategories
+      const keyword = this.searchProject ? this.projectFilter : this.talentFilter
+      const routeGenerator = (cate, sub) => `/${this.searchProject ? 'projects' : 'talents'}/${cate}/${sub}`
+      const filterToArray = _cate => {
+        return _cate.map(c => c.title)
+          .filter(t => t.includes(keyword))
+          .map(t => ({
+            text: `${t} > all`,
+            link: routeGenerator(t, 'all')
+          }))
+      }
+      // this.$router.push(routeGenerator.apply(this, (cate => )(searchSrc)))
+      console.log(routeGenerator.apply(this, (
+        cate => {
+          return filterToArray(cate).concat(filterToArray(cate.subcategories))
+        }
+      )(searchSrc)))
+    }
+  },
   data () {
     return {
       projectFilter: '',
       talentFilter: '',
       // mode is project
-      searchProject: true,
-      projectBox: ['品牌设计', '游戏原画', '短视频制作', '网页设计', '游戏开发', '网页开发'],
-      humanBox: []
+      searchProject: true
     }
   }
 }
