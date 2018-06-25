@@ -1,29 +1,28 @@
 <template>
   <div class="search-box">
-    <div class="tab">
-      <div @click="() => searchProject = true" :class="searchProject ? 'select' : ''">搜索项目</div>
-      <div @click="() => searchProject = false" :class="searchProject ? '' : 'select'">搜索人才</div>
-    </div>
-    <section v-if="searchProject">
-      <div class="box"><label>
-        <input v-model="projectFilter" type="text">
-      </label>
-        <button @click="handleSearch">搜索</button>
-      </div>
-      <div class="label-box">
-        <span></span>
-      </div>
-    </section>
-    <section v-if="!searchProject">
-      <div class="box"><label>
-        <input v-model="talentFilter" type="text">
-      </label>
-        <button @click="handleSearch">搜索</button>
-      </div>
-    </section>
-    <article>
-
-    </article>
+    <md-tabs class="tab">
+      <md-tab md-label="搜索项目" @click="() => changeSearchProject(true)" :class="searchProject ? 'select' : ''">
+        <section>
+          <div class="box"><label>
+            <input v-model="projectFilter" type="text">
+          </label>
+            <button @click="handleSearch">搜索</button>
+          </div>
+          <div class="label-box">
+            <span></span>
+          </div>
+        </section>
+      </md-tab>
+      <md-tab md-label="搜索人才" @click="() => changeSearchProject(false)" :class="searchProject ? '' : 'select'">
+        <section>
+          <div class="box"><label>
+            <input v-model="talentFilter" type="text">
+          </label>
+            <button @click="handleSearch">搜索</button>
+          </div>
+        </section>
+      </md-tab>
+    </md-tabs>
   </div>
 </template>
 
@@ -35,6 +34,9 @@ export default {
     talentCategories: Array.of(Object) || null
   },
   methods: {
+    changeSearchProject (to) {
+      this.searchProject = to
+    },
     handleSearch () {
       const type = this.searchProject ? 'projects' : 'talents'
       const keyword = this.searchProject ? this.projectFilter : this.talentFilter
