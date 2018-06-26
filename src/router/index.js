@@ -46,6 +46,16 @@ export default new Router({
       path: '/talents/:keyword',
       name: 'Talents',
       component: Talents
+    },
+    {
+      path: '/projects/',
+      name: 'Projects',
+      component: Projects
+    },
+    {
+      path: '/talents/',
+      name: 'Talents',
+      component: Talents
     }
   ]
 })

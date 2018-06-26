@@ -20,11 +20,12 @@ export default {
   props: {contents: Array, type: String, propFilter: String},
   data () {
     return {
-      filter: this.propFilter
+      filter: !this.propFilter ? '' : this.propFilter
     }
   },
   computed: {
     filtered () {
+      console.log(this.filter)
       return this.contents.filter(c => c.title.includes(this.filter)).reduce((ret, c) => ret.concat(c.contents), [])
     }
   }
