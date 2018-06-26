@@ -1,13 +1,15 @@
 <template>
-  <md-card v-if="content" class="talent">
-    <img :src="img">
-    <h3>{{name}}</h3>
-    <p>
-      <span>技能：</span>
-      <span class="skill" v-for="(skill, i) in skills" :key="i">{{skill}}</span>
-    </p>
-    <p><span>项目：</span>{{experience.length}}个</p>
-  </md-card>
+  <router-link v-if="content" :to="'talent/' + uid">
+    <md-card class="talent">
+      <img :src="img">
+      <h3>{{name}}</h3>
+      <p>
+        <span>技能：</span>
+        <span class="skill" v-for="(skill, i) in skills" :key="i">{{skill}}</span>
+      </p>
+      <p><span>项目：</span>{{experience.length}}个</p>
+    </md-card>
+  </router-link>
   <div v-else>LOADING~</div>
 </template>
 
@@ -30,6 +32,9 @@ export default {
     },
     img () {
       return this.content.img
+    },
+    uid () {
+      return this.content.uid
     }
   }
 }

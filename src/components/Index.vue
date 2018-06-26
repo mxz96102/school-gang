@@ -1,12 +1,12 @@
 <template>
   <div class="index">
-    <nav>
+    <nav class="md-card">
       <img src="../assets/logo.png" alt="校园邦" class="logo">
       <div class="flex"></div>
       <div class="info">
-        <router-link to="login">登陆</router-link>
-        <router-link to="register">注册</router-link>
-        <router-link to="" class="publish">发布项目</router-link>
+        <md-button><router-link to="login">登陆</router-link></md-button>
+        <md-button><router-link to="register">注册</router-link></md-button>
+        <md-button class="md-primary"><router-link to="">发布项目</router-link></md-button>
       </div>
     </nav>
     <SearchBox :project-categories="projects" :talent-categories="talents" />
@@ -53,6 +53,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .index {
+    padding-top: 90px;
+  }
+
   .index nav {
     width: 100%;
     height: 80px;
@@ -61,12 +65,8 @@ export default {
     align-items: center;
     padding: 0 3rem;
     box-sizing: border-box;
-  }
-
-  .index .info .publish {
-    background: #726dd1;
-    color: white;
-    padding: 5px 8px;
-    text-decoration: none;
+    position: fixed;
+    top: 0;
+    z-index: 5;
   }
 </style>

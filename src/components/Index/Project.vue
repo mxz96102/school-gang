@@ -1,9 +1,11 @@
 <template>
-  <md-card v-if="content" class="project">
-    <img :src="img">
-    <h3>{{name}}</h3>
-    <p>{{detail}}</p>
-  </md-card>
+  <router-link v-if="content" :to="'project/' + uid">
+    <md-card class="project">
+      <img :src="img">
+      <h3>{{name}}</h3>
+      <p>{{detail}}</p>
+    </md-card>
+  </router-link>
   <div v-else>LOADING~</div>
 </template>
 
@@ -23,6 +25,9 @@ export default {
     },
     detail () {
       return this.content.detail
+    },
+    uid () {
+      return this.content.uid
     }
   }
 }

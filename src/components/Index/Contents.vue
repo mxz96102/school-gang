@@ -3,7 +3,7 @@
     <div class="content-header">
       <h2>
         {{contents && contents.title}}
-        <md-button class="more-button"><router-link :to="contents && contents.more">更多</router-link></md-button>
+        <md-button class="more-button"><router-link :to="contents && contents.more || ''">更多</router-link></md-button>
       </h2>
     </div>
     <div>
@@ -32,15 +32,23 @@ export default {
   updated () {
     this.categories = this.contents ? this.contents['categories'] : []
     this.active = 0
-    const dirtyVUE = this.$refs.outerTabs.$children[0].$children[0]
-    const dirtyDOM = dirtyVUE ? dirtyVUE.$el.children[0].children[0].children[0] : null
-    dirtyDOM && dirtyDOM.click()
+    this.dirtyClick()
+  },
+  mounted () {
+    this.dirtyClick()
   },
   data () {
     return {
       outerTabs: null,
       active: null,
       categories: this.contents ? this.contents['categories'] : []
+    }
+  },
+  methods: {
+    dirtyClick () {
+      const dirtyVUE = this.$refs.outerTabs.$children[0].$children[0]
+      const dirtyDOM = dirtyVUE ? dirtyVUE.$el.children[0].children[0].children[0] : null
+      dirtyDOM && dirtyDOM.click()
     }
   }
 }

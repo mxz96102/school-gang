@@ -20,7 +20,7 @@ const faked = type => {
         img: randomImg(casual.integer(0, 2)),
         ddl: casual.moment
       })),
-      img: randomImg(casual.integer(0, 2))
+      img: 'http://tinygraphs.com/isogrids/' + casual.title + '?theme=bythepool&numcolors=4'
     }
     : {
       uid: casual.uuid,
@@ -53,7 +53,7 @@ const faked = type => {
       ],
       name: casual.title,
       detail: casual.sentence,
-      img: randomImg(casual.integer(0, 2))
+      img: 'http://tinygraphs.com/isogrids/' + casual.title + '?theme=bythepool&numcolors=4'
     }
 }
 
@@ -64,7 +64,7 @@ export default {
     return new Promise((resolve, reject) => {
       const facked = {
         talents: {
-          title: '按专业找zz',
+          title: '按专业找人才',
           more: '#',
           categories: Array.from(new Array(2)).map(() => ({
             title: casual.word,
@@ -75,7 +75,7 @@ export default {
           }))
         },
         projects: {
-          title: '项目zz',
+          title: '项目展示',
           more: '#',
           categories: Array.from(new Array(2)).map(() => ({
             title: casual.word,

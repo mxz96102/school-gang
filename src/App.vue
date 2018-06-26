@@ -37,7 +37,6 @@ export default {
   a {
     text-decoration: none;
     color: #060c7a;
-    margin: 0 10px;
   }
 
   .md-button.md-active {
