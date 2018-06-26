@@ -1,5 +1,5 @@
 <template>
-  <router-link v-if="content" :to="'project/' + uid">
+  <router-link v-if="content" :to="'/project/' + uid">
     <md-card class="project">
       <img :src="img">
       <h3>{{name}}</h3>

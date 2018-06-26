@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar :search-project="true" :avatar="avatar" />
-    <Contents :contents="projects" type="project" />
+    <ContentsWithFilter :contents="projects" type="project" :prop-filter="$route.params.keyword"/>
     <router-link to="/" class="black">back</router-link>
   </div>
 </template>
@@ -10,16 +10,17 @@
 import fetcher from '../request'
 import Contents from '@/components/Index/Contents'
 import NavBar from '@/components/NavBar'
+import ContentsWithFilter from '@/components/UtilComponents/ContentsWithFilter'
 
 export default {
   name: 'Projects',
-  components: {NavBar, Contents},
+  components: {ContentsWithFilter, NavBar, Contents},
   mounted () {
     fetcher
       .getAll()
       .then(data => {
         // this.projects = data.projects.categories
-        this.projects = data.projects
+        this.projects = data.projects.categories.reduce((ret, cate) => ret.concat(cate.subcategories), [])
       })
       .catch(e => {
       })
@@ -32,7 +33,7 @@ export default {
   },
   data () {
     return {
-      projects: {},
+      projects: [],
       avatar: null
     }
   }

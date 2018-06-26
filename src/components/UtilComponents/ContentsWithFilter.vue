@@ -1,8 +1,10 @@
 <template>
   <div class="contents">
     <div v-if="type === 'talent'">
+      <Talent v-for="(talent, i) in filtered" :content="talent" :key="i"></Talent>
     </div>
     <div v-else-if="type === 'project'">
+      <Project v-for="(project, i) in filtered" :content="project" :key="i"></Project>
     </div>
     <Loading v-else />
   </div>
@@ -15,12 +17,15 @@ import Loading from '@/components/UtilComponents/Loading'
 export default {
   name: 'ContentsWithFilter',
   components: {Loading, Project, Talent},
-  props: {contents: Array, type: String, filter: String},
+  props: {contents: Array, type: String, propFilter: String},
   data () {
     return {
-      outerTabs: null,
-      active: null,
-      categories: this.contents ? this.contents['categories'] : []
+      filter: this.propFilter
+    }
+  },
+  computed: {
+    filtered () {
+      return this.contents.filter(c => c.title.includes(this.filter)).reduce((ret, c) => ret.concat(c.contents), [])
     }
   }
 }
