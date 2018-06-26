@@ -10,8 +10,8 @@
       </div>
     </nav>
     <SearchBox :project-categories="projects" :talent-categories="talents" />
-    <Contents :contents="talents" type="talent" />
-    <Contents :contents="projects" type="project" />
+    <Contents v-bind="talents" type="talent" />
+    <Contents v-bind="projects" type="project" />
   </div>
 </template>
 

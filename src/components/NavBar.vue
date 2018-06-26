@@ -1,6 +1,6 @@
 <template>
   <nav class="md-card">
-    <img src="../assets/logo.png" alt="校园邦" class="logo">
+    <router-link to="/"><img src="../assets/logo.png" alt="校园邦" class="logo"></router-link>
     <SearchBar />
     <div class="user-info">
       <md-menu md-direction="bottom-start">

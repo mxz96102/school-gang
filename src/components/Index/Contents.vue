@@ -2,18 +2,20 @@
   <div class="contents md-card">
     <div class="content-header">
       <h2>
-        {{contents && contents.title}}
-        <md-button class="more-button"><router-link :to="contents && contents.more || ''">更多</router-link></md-button>
+        {{title}}
+        <md-button class="more-button">
+          <router-link :to="more || ''">更多</router-link>
+        </md-button>
       </h2>
     </div>
     <div>
       <md-tabs class="md-primary" ref="outerTabs" :md-active-tab="type + '-0-outer'">
-        <md-tab v-for="(cate, i) in this.categories" :id="`${type}-${i}-outer`" :key="i"
+        <md-tab v-for="(cate, i) in categories" :id="`${type}-${i}-outer`" :key="i"
                 :md-label="cate.title">
           <md-tabs class="md-primary">
             <md-tab v-for="(sub, i) in cate.subcategories" :key="i" :md-label="sub.title">
-              <Talent v-if="type === 'talent'" v-for="(content, i) in sub.contents" :content="content" :key="i" />
-              <Project v-if="type !== 'talent'" v-for="(content, i) in sub.contents" :content="content" :key="i" />
+              <Talent v-if="type === 'talent'" v-for="(content, i) in sub.contents" :content="content" :key="i"/>
+              <Project v-if="type !== 'talent'" v-for="(content, i) in sub.contents" :content="content" :key="i"/>
             </md-tab>
           </md-tabs>
         </md-tab>
@@ -28,27 +30,31 @@ import Project from '@/components/Index/Project'
 export default {
   name: 'Contents',
   components: {Project, Talent},
-  props: {contents: Object, type: String},
-  updated () {
-    this.categories = this.contents ? this.contents['categories'] : []
-    this.active = 0
-    this.dirtyClick()
+  props: {
+    categories: {
+      type: Array,
+      default: () => []
+    },
+    type: {
+      type: String,
+      default: () => ''
+    },
+    title: {
+      type: String,
+      default: () => ''
+    },
+    more: {
+      type: String,
+      default: () => ''
+    }
   },
   mounted () {
-    this.dirtyClick()
+    this.active = 0
   },
   data () {
     return {
       outerTabs: null,
-      active: null,
-      categories: this.contents ? this.contents['categories'] : []
-    }
-  },
-  methods: {
-    dirtyClick () {
-      const dirtyVUE = this.$refs.outerTabs.$children[0].$children[0]
-      const dirtyDOM = dirtyVUE ? dirtyVUE.$el.children[0].children[0].children[0] : null
-      dirtyDOM && dirtyDOM.click()
+      active: null
     }
   }
 }
