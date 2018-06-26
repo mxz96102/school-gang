@@ -1,6 +1,6 @@
 <template>
-  <div class="search-box">
-    <md-tabs class="tab">
+  <div class="search-box md-card">
+    <md-tabs  class="tab md-primary">
       <md-tab md-label="搜索项目" @click="() => changeSearchProject(true)" :class="searchProject ? 'select' : ''">
         <section>
           <div class="box"><label>
@@ -55,30 +55,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
   .search-box {
     width: 80%;
     margin: 3rem auto;
-    background: white;
-  }
-
-  .search-box .tab {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    background: #726dd1;
-    color: white;
-    font-weight: bolder;
-    font-size: 1.5rem;
-  }
-
-  .search-box .tab div {
-    text-align: center;
-    line-height: 3rem;
-  }
-
-  .search-box .tab div.select {
-    color: #060c7a;
     background: white;
   }
 
@@ -116,7 +96,11 @@ export default {
     cursor: pointer;
   }
 
-  .md-tab {
+  .search-box .md-tab {
     padding: 0;
+  }
+
+  .search-box .tab .md-tabs-content {
+    width: 100%;
   }
 </style>
