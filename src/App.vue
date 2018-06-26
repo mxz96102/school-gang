@@ -30,8 +30,8 @@ export default {
   }
 
   img.logo {
-    height: 50px;
-    width: auto;
+    height: auto;
+    width: 120px;
   }
 
   a {

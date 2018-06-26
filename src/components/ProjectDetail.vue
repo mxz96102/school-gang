@@ -1,5 +1,6 @@
 <template>
   <div class="project-wrap">
+    <NavBar></NavBar>
     <article v-if="project">
       <h1>{{project.name}}</h1>
       <ParentLink :category="project.parents.category" :subcategory="project.parents.subcategory" />
@@ -24,10 +25,11 @@
 import fetcher from '../request'
 import Loading from '@/components/UtilComponents/Loading'
 import ParentLink from '@/components/UtilComponents/ParentLink'
+import NavBar from '@/components/NavBar'
 
 export default {
   name: 'ProjectDetail',
-  components: {ParentLink, Loading},
+  components: {NavBar, ParentLink, Loading},
   mounted () {
     fetcher.getProjectDetail(this.uid).then(data => {
       this.project = data

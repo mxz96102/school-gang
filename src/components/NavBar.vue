@@ -1,9 +1,17 @@
 <template>
-  <div>
+  <nav class="md-card">
     <img src="../assets/logo.png" alt="校园邦" class="logo">
     <SearchBar />
-    <img :src="avatar" alt="头像" class="avatar">
-  </div>
+    <div class="user-info">
+      <md-menu md-direction="bottom-start">
+        <img :src="avatar" alt="头像" class="avatar" md-menu-trigger>
+        <md-menu-content>
+          <md-menu-item>{{name}}</md-menu-item>
+          <md-menu-item>退出登录</md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -12,7 +20,8 @@ import SearchBar from '@/components/UtilComponents/SearchBar'
 export default {
   name: 'NavBar',
   props: {
-    avatar: String
+    avatar: String,
+    name: String
   },
   components: {SearchBar},
   data () {
@@ -22,5 +31,24 @@ export default {
 </script>
 
 <style scoped>
+  nav {
+    width: 100%;
+    height: 80px;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    box-sizing: border-box;
+  }
 
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+  }
+
+  .user-info {
+    width: 120px;
+    text-align: center;
+  }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar :search-project="true" :avatar="avatar" />
+    <NavBar :search-project="true" :avatar="avatar" :name="name" />
     <ContentsWithFilter :contents="projects" type="project" :prop-filter="$route.params.keyword"/>
     <router-link to="/" class="black">back</router-link>
   </div>
@@ -27,6 +27,7 @@ export default {
     fetcher.loginWithToken()
       .then(data => {
         this.avatar = data.img
+        this.name = data.name
       })
       .catch(e => {
       })
@@ -34,7 +35,8 @@ export default {
   data () {
     return {
       projects: [],
-      avatar: null
+      avatar: null,
+      name: null
     }
   }
 }

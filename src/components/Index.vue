@@ -53,10 +53,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .index {
-    padding-top: 90px;
-  }
-
   .index nav {
     width: 100%;
     height: 80px;
@@ -65,8 +61,5 @@ export default {
     align-items: center;
     padding: 0 3rem;
     box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    z-index: 5;
   }
 </style>
