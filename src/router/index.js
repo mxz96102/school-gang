@@ -40,16 +40,6 @@ export default new Router({
       component: Error
     },
     {
-      path: '/projects/:keyword',
-      name: 'Projects',
-      component: Projects
-    },
-    {
-      path: '/talents/:keyword',
-      name: 'Talents',
-      component: Talents
-    },
-    {
       path: '/projects/',
       name: 'Projects',
       component: Projects
@@ -57,6 +47,16 @@ export default new Router({
     {
       path: '/talents/',
       name: 'Talents',
+      component: Talents
+    },
+    {
+      path: '/projects/:keyword',
+      name: 'ProjectsAll',
+      component: Projects
+    },
+    {
+      path: '/talents/:keyword',
+      name: 'TalentsAll',
       component: Talents
     },
     {

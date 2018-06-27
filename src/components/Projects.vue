@@ -1,7 +1,8 @@
 <template>
   <div>
-    <NavBar :search-project="true" :avatar="avatar" :name="name" />
-    <ContentsWithFilter :contents="projects" type="project" :prop-filter="$route.params.keyword"/>
+    <NavBar :search-project="true" :avatar="avatar" :name="name" :searched="$route.params.keyword"/>
+    <ContentsWithFilter v-if="projects.length > 0" :contents="projects" type="project"
+                        :prop-filter="$route.params.keyword ? $route.params.keyword : ''" />
     <router-link to="/" class="black">back</router-link>
   </div>
 </template>

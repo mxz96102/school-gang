@@ -1,7 +1,7 @@
 <template>
   <nav class="md-card">
     <router-link to="/"><img src="../assets/logo.png" alt="校园邦" class="logo"></router-link>
-    <SearchBar />
+    <SearchBar :searched="searched" />
     <div class="user-info">
       <md-menu v-if="$root.user.avatar" md-direction="bottom-start">
         <md-avatar md-menu-trigger>
@@ -26,7 +26,11 @@ export default {
   name: 'NavBar',
   props: {
     avatar: String,
-    name: String
+    name: String,
+    searched: {
+      type: String,
+      default: ''
+    }
   },
   components: {SearchBar},
   data () {
