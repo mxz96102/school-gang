@@ -9,6 +9,7 @@ import Talents from '@/components/Talents'
 import Error from '@/components/Error'
 import ProfileInfo from '@/components/Profile/Info'
 import ProfileMessage from '@/components/Profile/Message'
+import ProfileProject from '@/components/Profile/Project'
 
 Vue.use(Router)
 
@@ -68,6 +69,11 @@ export default new Router({
       path: '/profile/message',
       name: 'ProfileMessage',
       component: ProfileMessage
+    },
+    {
+      path: '/profile/project/:type',
+      name: 'ProfileProject',
+      component: ProfileProject
     }
   ]
 })

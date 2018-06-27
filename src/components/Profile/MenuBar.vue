@@ -5,7 +5,7 @@
       </md-list-item>
       <md-list-item md-expand>
         <span class="md-list-item-text">我的项目</span>
-        <md-list slot="md-expand">
+        <md-list slot="md-expand" :md-expand.sync="$route.name === 'ProfileProject'">
           <md-list-item class="md-inset" to="/profile/project/join">加入的项目</md-list-item>
           <md-list-item class="md-inset" to="/profile/project/publish">发布的项目</md-list-item>
           <md-list-item class="md-inset" to="/profile/project/complete">完成的项目</md-list-item>
@@ -19,7 +19,10 @@
 
 <script>
 export default {
-  name: 'MenuBar'
+  name: 'MenuBar',
+  data () {
+    return {}
+  }
 }
 </script>
 
