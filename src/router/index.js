@@ -7,6 +7,8 @@ import ProjectDetail from '@/components/ProjectDetail'
 import Projects from '@/components/Projects'
 import Talents from '@/components/Talents'
 import Error from '@/components/Error'
+import ProfileInfo from '@/components/Profile/Info'
+import ProfileMessage from '@/components/Profile/Message'
 
 Vue.use(Router)
 
@@ -56,6 +58,16 @@ export default new Router({
       path: '/talents/',
       name: 'Talents',
       component: Talents
+    },
+    {
+      path: '/profile/info',
+      name: 'ProfileInfo',
+      component: ProfileInfo
+    },
+    {
+      path: '/profile/message',
+      name: 'ProfileMessage',
+      component: ProfileMessage
     }
   ]
 })

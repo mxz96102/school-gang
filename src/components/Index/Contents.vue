@@ -14,8 +14,8 @@
                 :md-label="cate.title">
           <md-tabs class="md-primary">
             <md-tab v-for="(sub, i) in cate.subcategories" :key="i" :md-label="sub.title">
-              <Talent v-if="type === 'talent'" v-for="(content, i) in sub.contents" :content="content" :key="i"/>
-              <Project v-if="type !== 'talent'" v-for="(content, i) in sub.contents" :content="content" :key="i"/>
+              <Talent v-if="type === 'talent'" v-for="(content, i) in sub.contents.slice(0,3)" :content="content" :key="i"/>
+              <Project v-if="type !== 'talent'" v-for="(content, i) in sub.contents.slice(0,3)" :content="content" :key="i"/>
             </md-tab>
           </md-tabs>
         </md-tab>
@@ -65,7 +65,6 @@ export default {
   .contents {
     width: 80%;
     margin: 3rem auto;
-    text-align: center;
   }
 
   .md-tab {
@@ -75,6 +74,8 @@ export default {
 
   .md-tab .md-tab {
     padding: 1rem;
+    display: flex;
+    justify-content: space-evenly;
   }
 
   h2 {

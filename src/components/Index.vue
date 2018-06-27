@@ -3,7 +3,16 @@
     <nav class="md-card">
       <img src="../assets/logo.png" alt="校园邦" class="logo">
       <div class="flex"></div>
-      <div class="info">
+      <md-menu v-if="$root.user.avatar" md-direction="bottom-start">
+        <md-avatar md-menu-trigger>
+          <img :src="avatar" alt="头像" class="avatar">
+        </md-avatar>
+        <md-menu-content>
+          <md-menu-item>{{name}}</md-menu-item>
+          <md-menu-item>退出登录</md-menu-item>
+        </md-menu-content>
+      </md-menu>
+      <div v-else class="info">
         <md-button><router-link to="login">登陆</router-link></md-button>
         <md-button><router-link to="register">注册</router-link></md-button>
         <md-button class="md-primary"><router-link to="">发布项目</router-link></md-button>

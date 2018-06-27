@@ -1,7 +1,7 @@
 <template>
   <router-link v-if="content" :to="'talent/' + uid">
     <md-card class="talent">
-      <img :src="img">
+      <md-card-media><img :src="img"></md-card-media>
       <h3>{{name}}</h3>
       <p>
         <span>技能：</span>
