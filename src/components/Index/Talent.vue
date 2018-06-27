@@ -1,5 +1,5 @@
 <template>
-  <router-link v-if="content" :to="'talent/' + uid">
+  <div class="talent-card" v-if="content" @click="showDialog = true">
     <md-card class="talent">
       <md-card-media><img :src="img"></md-card-media>
       <h3>{{name}}</h3>
@@ -9,16 +9,22 @@
       </p>
       <p><span>项目：</span>{{experience.length}}个</p>
     </md-card>
-  </router-link>
+    <TalentDetail :showDetail="showDialog" :content="content" />
+  </div>
   <div v-else>LOADING~</div>
 </template>
 
 <script>
+import TalentDetail from '@/components/UtilComponents/TalentDetail'
+
 export default {
   name: 'Talent',
+  components: {TalentDetail},
   props: ['content'],
   data () {
-    return {}
+    return {
+      showDialog: false
+    }
   },
   computed: {
     name () {
@@ -41,6 +47,10 @@ export default {
 </script>
 
 <style scoped>
+  .talent-card {
+    display: inline-block;
+  }
+
   .md-card {
     width: 225px;
     margin: 10px;

@@ -22,11 +22,22 @@
 import Talent from '@/components/Index/Talent'
 import Project from '@/components/Index/Project'
 import Loading from '@/components/UtilComponents/Loading'
+import fetcher from '../../request'
 
 export default {
   name: 'ContentsWithFilter',
   components: {Loading, Project, Talent},
   props: {contents: Array, type: String, propFilter: String},
+  mounted () {
+    fetcher.getAllSkills()
+      .then(data => {
+        const _needs = this.type === 'project' ? data : []
+        this.needs = _needs
+        this.needsShown = this.propFilter ? _needs.filter(n => n.includes(this.propFilter)) : []
+      })
+      .catch(e => {
+      })
+  },
   methods: {
     handleFilterChange (type, value) {
       const toChange = {
@@ -42,39 +53,21 @@ export default {
   },
   data () {
     return {
-      cateShown: this.contents.map(c => c.title).filter(title => title.includes(this.propFilter)),
-      needs: this.type === 'project'
-        ? Array.from(new Set(
-          this.contents
-            .reduce((acc, c) => acc.concat(c.contents), [])
-            .reduce((a, c) => a.concat(
-              c.needs
-                .map(n => n.name)
-            ), [])
-        ))
-        : [],
-      needsShown: this.type === 'project'
-        ? Array.from(new Set(
-          this.contents
-            .reduce((acc, c) => acc.concat(c.contents), [])
-            .reduce((a, c) => a.concat(
-              c.needs
-                .map(n => n.name)
-            ), [])
-        ))
-        : []
+      needs: [],
+      needsShown: [],
+      cateShown: this.propFilter ? this.contents.map(c => c.title).filter(title => title.includes(this.propFilter)) : []
     }
   },
   computed: {
     flattenedContents () {
       return this.contents
-        .filter(c => this.cateShown.includes(c.title))
+        .filter(c => this.cateShown.length === 0 || this.cateShown.includes(c.title))
         .reduce((acc, c) => acc.concat(c.contents), [])
         // .filter(c => this.ddlShown.includes(c.ddl))
-        .filter(c => c.needs
+        .filter(c => this.type !== 'project' ? true : c.needs
           .filter(n => n.number > 0)
           .map(n => n.name)
-          .reduce((a, v) => a || this.needsShown.includes(v), false))
+          .reduce((a, v) => a || this.needsShown.length === 0 || this.needsShown.includes(v), false))
     }
   }
 }

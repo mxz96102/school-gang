@@ -1,15 +1,13 @@
 import casual from 'casual-browserify'
+import a1 from '../assets/1.png'
+import a2 from '../assets/2.png'
+import a3 from '../assets/3.png'
+import a4 from '../assets/4.png'
+import a5 from '../assets/5.png'
 
-const randomImg = () => {
-  const imgs = [
-    'https://avatars1.githubusercontent.com/u/17938744?s=460&v=4',
-    'https://avatars0.githubusercontent.com/u/38151957?s=460&v=4',
-    'https://avatars1.githubusercontent.com/u/32388319?s=460&v=4',
-    'https://avatars0.githubusercontent.com/u/36807171?s=460&v=4',
-    'https://avatars2.githubusercontent.com/u/23148748?s=460&v=4'
-  ]
-  return imgs[Math.floor(Math.random() * (imgs.length))]
-}
+const randomFromArray = array => () => array[Math.floor(Math.random() * (array.length))]
+const randomImg = randomFromArray([a1, a2, a3, a4, a5])
+const randomSkill = randomFromArray(['UI', '设计', '游戏设计', 'java 工程师', 'C++', '后台', '前端', '游戏开发'])
 
 // const token = null
 
@@ -18,12 +16,13 @@ const faked = type => {
     ? {
       uid: casual.uuid,
       name: casual.full_name,
+      intro: casual.sentence,
       phone: casual.phone,
       qq: casual.phone,
       wx: casual.phone,
-      skills: casual.array_of_words(casual.integer(0, 3)),
+      skills: Array.from(new Array(3)).map(() => randomSkill()),
       experience: Array.from(new Array(casual.integer(2, 7))).map(() => ({
-        projectID: casual.uuid,
+        uid: casual.uuid,
         title: casual.title,
         img: randomImg(),
         ddl: casual.unix_time
@@ -44,17 +43,17 @@ const faked = type => {
       ddl: casual.unix_time,
       needs: [
         {
-          name: 'UI射击石',
+          name: randomSkill(),
           number: 2,
           uid: casual.uuid
         },
         {
-          name: 'UI射击水',
+          name: randomSkill(),
           number: 0,
           uid: casual.uuid
         },
         {
-          name: 'UI射击木头',
+          name: randomSkill(),
           number: 5,
           uid: casual.uuid
         }
@@ -77,7 +76,7 @@ export default {
           categories: Array.from(new Array(2)).map(() => ({
             title: casual.word,
             subcategories: Array.from(new Array(4)).map(() => ({
-              title: casual.word,
+              title: randomSkill(),
               contents: Array.from(new Array(6)).map(() => (faked('user')))
             }))
           }))
@@ -99,6 +98,11 @@ export default {
       } else {
         reject(new Error('502'))
       }
+    })
+  },
+  getAllSkills () {
+    return new Promise((resolve) => {
+      resolve(['UI', '设计', '游戏设计', 'java 工程师', 'C++', '后台', '前端', '游戏开发'])
     })
   },
   getProjectDetail (uid) {
@@ -190,4 +194,4 @@ export default {
     })
   }
 }
-
+// 通知
