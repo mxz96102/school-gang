@@ -9,10 +9,27 @@ import a5 from '../assets/5.png'
 const randomFromArray = array => () => array[Math.floor(Math.random() * (array.length))]
 const randomImg = randomFromArray([a1, a2, a3, a4, a5])
 const randomSkill = randomFromArray(['UI', '设计', '游戏设计', 'java 工程师', 'C++', '后台', '前端', '游戏开发'])
-
+const ALLCATE = [
+  {
+    name: '产品&设计类',
+    sub: [
+      'logo 设计', '游戏设计', '网页设计', '短视频制作', '文件资料翻译'
+    ]
+  }, {
+    name: '程序开发类',
+    sub: [
+      '微信公众号开发', '游戏开发', 'android 软件开发', '网页开发', 'ios 软件开发'
+    ]
+  }
+]
+const randomCateSet = () => {
+  const cateSet = randomFromArray(ALLCATE)()
+  return [cateSet.name, randomFromArray(cateSet.sub)()]
+}
 // const token = null
 
-const faked = type => {
+const faked = (type, cateSet = []) => {
+  const [cate, sub] = cateSet.length === 2 ? cateSet : randomCateSet()
   return type === 'user'
     ? {
       uid: casual.uuid,
@@ -35,10 +52,10 @@ const faked = type => {
       uid: casual.uuid,
       parents: {
         category: {
-          name: casual.word
+          name: cate
         },
         subcategory: {
-          name: casual.word
+          name: sub
         }
       },
       from: casual.name,
@@ -75,10 +92,10 @@ export default {
         talents: {
           title: '按专业找人才',
           more: '#',
-          categories: Array.from(new Array(2)).map(() => ({
-            title: casual.word,
-            subcategories: Array.from(new Array(4)).map(() => ({
-              title: randomSkill(),
+          categories: ALLCATE.map(cate => ({
+            title: cate.name,
+            subcategories: cate.sub.map(sub => ({
+              title: sub,
               contents: Array.from(new Array(6)).map(() => (faked('user')))
             }))
           }))
@@ -86,11 +103,11 @@ export default {
         projects: {
           title: '项目展示',
           more: '#',
-          categories: Array.from(new Array(2)).map(() => ({
-            title: casual.word,
-            subcategories: Array.from(new Array(4)).map(() => ({
-              title: casual.word,
-              contents: Array.from(new Array(6)).map(() => (faked('project')))
+          categories: ALLCATE.map(cate => ({
+            title: cate.name,
+            subcategories: cate.sub.map(sub => ({
+              title: sub,
+              contents: Array.from(new Array(6)).map(() => (faked('project', [cate.name, sub.name])))
             }))
           }))
         }
@@ -121,6 +138,11 @@ export default {
       }
     })
   },
+  getAllCate () {
+    return new Promise((resolve) => {
+      resolve(ALLCATE)
+    })
+  },
   getUser (userID) {
     let requestSuccess = arguments[arguments.length - 1]
     requestSuccess = typeof requestSuccess === 'boolean' ? requestSuccess : true
@@ -142,7 +164,7 @@ export default {
     axios.post('//localhost:8080/api/project', project)
     return new Promise((resolve, reject) => {
       resolve({
-        ...faked('project'),
+        ...faked('project', [project.cate, project.sub]),
         ...{uid: casual.uuid}
       })
     })
@@ -151,7 +173,7 @@ export default {
     // do somthing here
     return new Promise((resolve, reject) => {
       resolve({
-        ...faked('project'),
+        ...faked('project', [project.cate, project.sub]),
         ...{uid: projectID}
       })
     })

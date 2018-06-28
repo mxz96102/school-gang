@@ -9,6 +9,12 @@
           <md-input v-model="project.name"></md-input>
         </md-field>
         <md-field>
+          <label>项目类别</label>
+          <md-select v-model="project.cate" name="cate">
+            <md-option v-for="(cate, i) in cates" :value="cate" :key="i">{{cate}}</md-option>
+          </md-select>
+        </md-field>
+        <md-field>
           <label>项目描述</label>
           <md-textarea v-model="project.detail"></md-textarea>
         </md-field>
@@ -16,16 +22,14 @@
           <label>简介图</label>
           <md-file v-model="uploadImg" accept="image/*" />
         </md-field>
-        <md-field>
-          <md-chips>
-            <md-chip
-              v-for="(skill, i) in skills"
-              :key="i"
-              @click="() => project.needs.map(n => n.name).includes(skill) || project.needs.push({name: skill, number: 1})">
-              {{skill}}
-            </md-chip>
-          </md-chips>
-        </md-field>
+        <md-chips>
+          <md-chip
+            v-for="(skill, i) in skills"
+            :key="i"
+            @click="() => project.needs.map(n => n.name).includes(skill) || project.needs.push({name: skill, number: 1})">
+            {{skill}}
+          </md-chip>
+        </md-chips>
         <md-field v-for="(need, i) in project.needs" v-if="need.number > 0" :key="i">
           <label>{{need.name}}</label>
           <md-input
@@ -33,7 +37,8 @@
             type="number" />
           <md-button
             @click="() => project.needs = project.needs.filter(n => n.name !== need.name)"
-            class="md-accent md-square">删除</md-button>
+            class="md-input-action md-accent md-square">删除
+          </md-button>
         </md-field>
         <md-field>
           <label>完成时间</label>
@@ -63,13 +68,20 @@ export default {
         img: this.uploadImg
       }).then(res => {
         console.log(res)
-      }).catch(() => {})
+      }).catch(() => {
+      })
     }
   },
   data () {
     fetcher.getAllSkills()
       .then(data => {
         this.skills = data
+      })
+      .catch(e => {
+      })
+    fetcher.getAllCate()
+      .then(data => {
+        this.cates = data.reduce((a, v) => a.concat(v.sub), [])
       })
       .catch(e => {
       })
@@ -82,6 +94,7 @@ export default {
         detail: '',
         img: ''
       },
+      cates: [],
       skills: []
     }
   }
