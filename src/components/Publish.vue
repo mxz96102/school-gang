@@ -26,7 +26,7 @@
             </md-chip>
           </md-chips>
         </md-field>
-        <md-field v-for="(need, i) in project.needs" :key="i">
+        <md-field v-for="(need, i) in project.needs" v-if="need.number > 0" :key="i">
           <label>{{need.name}}</label>
           <md-input
             v-model="need.number"
@@ -42,7 +42,7 @@
         </md-field>
       </md-card-content>
       <md-card-actions>
-        <md-button class="md-primary md-raised">发布</md-button>
+        <md-button @click="() => handlePublish()" class="md-primary md-raised">发布</md-button>
       </md-card-actions>
     </md-card>
   </div>
@@ -55,6 +55,10 @@ import NavBar from '@/components/NavBar'
 export default {
   name: 'Publish',
   components: {NavBar},
+  methods: {
+    handlePublish () {
+    }
+  },
   data () {
     fetcher.getAllSkills()
       .then(data => {
