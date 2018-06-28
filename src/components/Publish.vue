@@ -31,10 +31,9 @@
           <md-input
             v-model="need.number"
             type="number" />
-          <span class="md-square"
-                @click="() => project.needs = project.needs.filter(n => n.name !== need.name)">
-            X
-          </span>
+          <md-button
+            @click="() => project.needs = project.needs.filter(n => n.name !== need.name)"
+            class="md-accent md-square">删除</md-button>
         </md-field>
         <md-field>
           <label>完成时间</label>
@@ -57,6 +56,14 @@ export default {
   components: {NavBar},
   methods: {
     handlePublish () {
+      console.log(this.project)
+      fetcher.addProject({
+        ...this.project,
+        ddl: this.project.ddl.getTime(),
+        img: this.uploadImg
+      }).then(res => {
+        console.log(res)
+      }).catch(() => {})
     }
   },
   data () {
