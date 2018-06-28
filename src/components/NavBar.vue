@@ -3,12 +3,13 @@
     <router-link to="/"><img src="../assets/logo.png" alt="校园邦" class="logo"></router-link>
     <SearchBar :searched="searched" />
     <div class="user-info">
-      <md-menu v-if="$root.user.avatar" md-direction="bottom-start">
+      <md-menu v-if="$root.user.img" md-direction="bottom-start">
         <md-avatar md-menu-trigger>
-          <img :src="avatar" alt="头像" class="avatar">
+          <img :src="$root.user.img" alt="头像" class="avatar">
         </md-avatar>
         <md-menu-content>
-          <md-menu-item>{{name}}</md-menu-item>
+          <md-menu-item to="/profile/info">{{$root.user.name}}</md-menu-item>
+          <md-menu-item to="/publish" class="md-primary">发布项目</md-menu-item>
           <md-menu-item>退出登录</md-menu-item>
         </md-menu-content>
       </md-menu>

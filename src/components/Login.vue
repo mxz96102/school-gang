@@ -12,17 +12,31 @@
         <p>
           <router-link to="register">注册账号</router-link>
         </p>
-        <input type="submit" value="登陆">
+        <input @click="login" type="submit" value="登陆">
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import request from '../request'
+
 export default {
   name: 'Login',
   data () {
     return {}
+  },
+  methods: {
+    login (e) {
+      e.preventDefault()
+
+      request.getUser(1111).then(
+        res => {
+          this.$root.user = res
+          this.$router.push('/')
+        }
+      )
+    }
   }
 }
 </script>
