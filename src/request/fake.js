@@ -1,4 +1,5 @@
 import casual from 'casual-browserify'
+import axios from 'axios'
 import a1 from '../assets/1.png'
 import a2 from '../assets/2.png'
 import a3 from '../assets/3.png'
@@ -137,6 +138,8 @@ export default {
   },
   addProject (project) {
     // new project
+    console.log(project)
+    axios.post('//localhost:8080/api/project', project)
     return new Promise((resolve, reject) => {
       resolve({
         ...faked('project'),
