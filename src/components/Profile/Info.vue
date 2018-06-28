@@ -7,24 +7,86 @@
         <md-card-header>
           <md-card-header-text>
             <h2>{{user.name}}, 你好</h2>
-            <md-button class="md-primary md-raised">修改用户名</md-button>
+            <md-button @click="() => nameActive = true" class="md-primary md-raised">修改用户名</md-button>
+            <md-button @click="() => avatarActive = true" class="md-primary md-raised">上传头像</md-button>
           </md-card-header-text>
           <md-card-media>
             <img :src="user.img" alt="">
           </md-card-media>
         </md-card-header>
         <md-card-content>
+          <h2>个人介绍</h2>
+          <md-button @click="() => introActive = true" class="md-primary md-raised">修改自我介绍</md-button>
+          <p>{{user.intro}}</p>
           <h2>个人能力</h2>
           <md-chips>
-            <md-chip v-for="(skill, i) in user.skills" :key="i" class="md-primary" md-deletable>{{skill}}</md-chip>
-            <md-chip md-clickable>增加技能</md-chip>
+            <md-chip
+              @click="() => user.skills.includes(skill) ? user.skills = user.skills.filter(e => e !== skill) : user.skills.push(skill)"
+              v-for="(skill, i) in skills"
+              :key="i"
+              :class="user.skills.includes(skill) ? 'md-primary' : ''">{{skill}}</md-chip>
           </md-chips>
           <h2>联系方式</h2>
-          <md-button class="md-primary md-raised">修改联系方式</md-button>
-          <p>QQ: 12121212</p>
-          <p>微信：3242352354</p>
-          <p>电话：1332323232</p>
+          <md-button @click="() => contactActive = true" class="md-primary md-raised">修改联系方式</md-button>
+          <p>QQ: {{user.qq}}</p>
+          <p>微信：{{user.wx}}</p>
+          <p>电话：{{user.phone}}</p>
         </md-card-content>
+        <md-card-actions>
+          <md-button>保存修改</md-button>
+        </md-card-actions>
+        <md-dialog-prompt
+          :md-active.sync="nameActive"
+          v-model="user.name"
+          md-title="修改用户名"
+          md-input-maxlength="30"
+          md-input-placeholder="请输入新的名字"
+          md-confirm-text="确认"
+          md-cancel-text="取消"/>
+        <md-dialog :md-active.sync="avatarActive">
+          <md-dialog-title>上传头像</md-dialog-title>
+          <md-dialog-content>
+            <md-field>
+              <md-file placeholder="点击上传图片"></md-file>
+            </md-field>
+            <md-dialog-actions>
+              <md-button class="md-primary" @click="avatarActive = false">取消</md-button>
+              <md-button class="md-primary" @click="avatarActive = false">保存</md-button>
+            </md-dialog-actions>
+          </md-dialog-content>
+        </md-dialog>
+        <md-dialog :md-active.sync="introActive">
+          <md-dialog-title>修改个人资料</md-dialog-title>
+          <md-dialog-content>
+            <md-field>
+              <md-textarea v-model="user.intro"></md-textarea>
+            </md-field>
+            <md-dialog-actions>
+              <md-button class="md-primary md-mini" @click="introActive = false">保存</md-button>
+            </md-dialog-actions>
+          </md-dialog-content>
+        </md-dialog>
+        <md-dialog :md-active.sync="contactActive">
+          <md-dialog-title>上传头像</md-dialog-title>
+          <md-dialog-content>
+            <md-field>
+              <label>QQ </label>
+              <md-input v-model="user.qq" placeholder="输入qq"></md-input>
+            </md-field>
+            <md-field>
+              <label>WeChat </label>
+              <md-input v-model="user.wx" placeholder="输入qq"></md-input>
+            </md-field>
+            <md-field>
+              <label>Phone</label>
+              <md-input v-model="user.phone" placeholder="输入qq"></md-input>
+            </md-field>
+            <md-dialog-actions>
+              <md-button class="md-primary" @click="contactActive = false">取消</md-button>
+              <md-button class="md-primary" @click="contactActive = false">保存</md-button>
+            </md-dialog-actions>
+          </md-dialog-content>
+        </md-dialog>
       </md-card>
     </md-content>
   </div>
@@ -48,8 +110,19 @@ export default {
       }
     )
 
+    request.getAllSkills().then(
+      res => {
+        __this.skills = res
+      }
+    )
+
     return {
-      user: {}
+      user: {},
+      nameActive: false,
+      avatarActive: false,
+      contactActive: false,
+      introActive: false,
+      skills: []
     }
   }
 }
@@ -65,5 +138,9 @@ export default {
   .content {
     flex: 1;
     padding: 1rem;
+  }
+
+  .md-card-content .md-button {
+    margin: 0;
   }
 </style>

@@ -4,6 +4,7 @@
     <md-content>
       <MenuBar></MenuBar>
       <md-card class="content">
+        <Project v-for="(project, i) in user.experience" :content="project" :key="i"/>
       </md-card>
     </md-content>
   </div>
@@ -12,12 +13,20 @@
 <script>
 import NavBar from '../NavBar'
 import MenuBar from './MenuBar'
-// import request from '../../request'
+import Project from '../Index/Project'
+import request from '../../request'
 
 export default {
-  name: 'Project',
-  components: {MenuBar, NavBar},
+  name: 'ProfileProject',
+  components: {MenuBar, NavBar, Project},
   data () {
+    request.getUser(1111).then(
+      res => {
+        console.log(res)
+        this.user = res
+      }
+    )
+
     return {
       user: {}
     }

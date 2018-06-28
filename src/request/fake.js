@@ -23,9 +23,10 @@ const faked = type => {
       skills: Array.from(new Array(3)).map(() => randomSkill()),
       experience: Array.from(new Array(casual.integer(2, 7))).map(() => ({
         uid: casual.uuid,
-        title: casual.title,
+        name: casual.title,
         img: randomImg(),
-        ddl: casual.unix_time
+        ddl: casual.unix_time,
+        detail: casual.sentence
       })),
       img: randomImg()
     }
