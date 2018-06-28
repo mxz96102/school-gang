@@ -19,7 +19,7 @@
             <img :src="exp.img" alt="People">
           </md-avatar>
           <div class="md-list-item-text">
-            <span>{{exp.title}}</span>
+            <span>{{exp.name}}</span>
             <span>{{ddl}}（完成时间）</span>
           </div>
           <md-button class="md-list-action">
@@ -29,8 +29,7 @@
       </md-list>
     </md-dialog-content>
     <md-dialog-actions>
-      <md-button class="md-primary" @click="$parent.showDialog = false">Close</md-button>
-      <md-button class="md-primary" @click="$parent.showDialog = false">Save</md-button>
+      <md-button class="md-primary" @click="$parent.showDialog = false">关闭</md-button>
     </md-dialog-actions>
   </md-dialog>
 
