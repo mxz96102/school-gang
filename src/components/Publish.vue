@@ -30,7 +30,7 @@
             {{skill}}
           </md-chip>
         </md-chips>
-        <md-field v-for="(need, i) in project.needs"> 0" :key="i">
+        <md-field v-for="(need, i) in project.needs" :key="i">
           <label>{{need.name}}</label>
           <md-input
             v-model="need.number"
