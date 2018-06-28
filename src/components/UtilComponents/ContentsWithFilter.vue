@@ -1,10 +1,12 @@
 <template>
   <div class="contents">
     <p>
+      <span>项目类别</span>
       <span v-for="(content, i) in contents" :class="cateShown.includes(content.title) ? 'included' : 'not-included'"
             @click="() => handleFilterChange('cate', content.title)" :key="i+'cate'">{{content.title}}</span>
     </p>
     <p v-if="type === 'project'">
+      <span>需求人员</span>
       <span v-for="(content, i) in needs" :class="needsShown.includes(content) ? 'included' : 'not-included'"
             @click="() => handleFilterChange('needs', content)" :key="i+'needs'">{{content}}</span>
     </p>

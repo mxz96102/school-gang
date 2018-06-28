@@ -10,6 +10,7 @@ import Error from '@/components/Error'
 import ProfileInfo from '@/components/Profile/Info'
 import ProfileMessage from '@/components/Profile/Message'
 import ProfileProject from '@/components/Profile/Project'
+import Publish from '@/components/Publish'
 
 Vue.use(Router)
 
@@ -74,6 +75,11 @@ export default new Router({
       path: '/profile/project/:type',
       name: 'ProfileProject',
       component: ProfileProject
+    },
+    {
+      path: '/publish',
+      name: 'Publish',
+      component: Publish
     }
   ]
 })

@@ -9,13 +9,9 @@
         <p class="md-title">{{name}}</p>
         <span class="skill" v-for="(skill, i) in skills" :key="i">{{skill}}</span>
       </md-card-header>
-    </md-dialog-title>
-    <md-dialog-content>
-      <md-content>
-        {{intro}}
-      </md-content>
+      {{intro}}
       <h2>项目经历<span class="exp-count">{{experience.length}}次</span></h2>
-    </md-dialog-content>
+    </md-dialog-title>
     <md-dialog-content>
       <md-list class="md-triple-line">
         <md-list-item v-for="(exp, i) in experience" :key="i">
@@ -26,7 +22,9 @@
             <span>{{exp.title}}</span>
             <span>{{ddl}}（完成时间）</span>
           </div>
-          <router-link class="md-list-action" :to="'/project/'+exp.uid">查看</router-link>
+          <md-button class="md-list-action">
+            <router-link :to="'/project/'+exp.uid">查看</router-link>
+          </md-button>
         </md-list-item>
       </md-list>
     </md-dialog-content>
@@ -87,9 +85,11 @@ export default {
     margin: 2px 2px;
     line-height: 1.45em;
   }
+
   h2 {
     margin: .5em 0;
   }
+
   .exp-count {
     font-size: .8em;
     font-weight: normal;
