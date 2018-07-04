@@ -7,7 +7,7 @@
         </md-avatar>
 
         <p class="md-title">{{name}}</p>
-        <span class="skill" v-for="(skill, i) in skills" :key="i">{{skill}}</span>
+        <span class="skill" v-for="(skill, i) in skills" :key="i">{{skill.name}}</span>
       </md-card-header>
       {{intro}}
       <h2>项目经历<span class="exp-count">{{experience.length}}次</span></h2>

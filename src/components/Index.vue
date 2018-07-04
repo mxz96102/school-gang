@@ -3,23 +3,10 @@
     <nav class="md-card">
       <img src="../assets/logo.png" alt="校园邦" class="logo">
       <div class="flex"></div>
-      <md-menu v-if="$root.user.img" md-direction="bottom-start">
-        <md-avatar md-menu-trigger>
-          <img :src="$root.user.img" alt="头像" class="avatar">
-        </md-avatar>
-        <md-menu-content>
-          <md-menu-item to="/profile/info">{{$root.user.name}}</md-menu-item>
-          <md-menu-item to="/publish" class="md-primary">发布项目</md-menu-item>
-          <md-menu-item>退出登录</md-menu-item>
-        </md-menu-content>
-      </md-menu>
-      <div v-else class="info">
-        <md-button><router-link to="login">登陆</router-link></md-button>
-        <md-button><router-link to="register">注册</router-link></md-button>
-      </div>
+      <UserInfo />
     </nav>
-    <SearchBox :project-categories="projects" :talent-categories="talents" />
-    <Contents v-bind="talents" type="talent" />
+    <SearchBox />
+    <ContentsWithFilter :contents="talents" type="talent"  />
     <Contents v-bind="projects" type="project" />
   </div>
 </template>
@@ -28,32 +15,30 @@
 import SearchBox from './Index/SearchBox'
 import Contents from './Index/Contents'
 import fetcher from '../request'
+import UserInfo from '@/components/UtilComponents/UserInfo'
+import ContentsWithFilter from '@/components/UtilComponents/ContentsWithFilter'
 
 export default {
   name: 'Index',
-  components: {SearchBox, Contents},
+  components: {ContentsWithFilter, UserInfo, SearchBox, Contents},
   data () {
     // const data = fetcher.getAll(true).then()
     return {
       isMounted: false,
       msg: 'loading',
-      talents: null,
-      projects: null
+      talents: [],
+      projects: {}
     }
   },
   mounted () {
     fetcher.getAll()
       .then(data => {
-        this.talents = {
-          ...data.talents,
-          more: '/talents/'
-        }
-        this.projects = {
-          ...data.projects,
-          more: '/projects/'
-        }
+        console.log(data)
+        this.talents = data.talents
+        this.projects = data.projects
       })
       .catch(e => {
+        console.error(e)
         this.msg = e.toString()
       })
   }

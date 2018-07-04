@@ -5,8 +5,15 @@
 </template>
 
 <script>
+import request from './request'
 export default {
-  name: 'App'
+  name: 'App',
+  mounted () {
+    request.cacheProfile().then(({name, img, uid}) => {
+      this.$root.user = {name, img, uid}
+      this.$router.push('/')
+    })
+  }
 }
 </script>
 

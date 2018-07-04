@@ -17,7 +17,7 @@
         <h4>项目简介</h4>
         <p class="detail">{{project.detail}}</p>
         <h4>发布人</h4>
-        <p class="from">{{project.from}}</p>
+        <p class="from">{{project.from.name}}</p>
         <h4>截止日期</h4>
         <p class="ddl">{{project.ddl}}</p>
         <h4 class="needs-title"> 需求人员 </h4>
@@ -40,7 +40,7 @@
       md-confirm-text="申请"
       md-cancel-text="取消"
       @md-cancel="() => active = false"
-      @md-confirm="() => active = false" />
+      @md-confirm="() => applyProject()" />
   </div>
 </template>
 
@@ -60,6 +60,11 @@ export default {
       console.error(e)
       this.$router.push('error/404')
     })
+  },
+  methods: {
+    applyProject () {
+      this.active = false
+    }
   },
   data () {
     return {

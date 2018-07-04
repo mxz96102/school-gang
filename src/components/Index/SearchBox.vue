@@ -18,7 +18,7 @@
           <div class="box"><label>
             <input v-model="talentFilter" type="text">
           </label>
-            <button @click="handleSearch">搜索</button>
+            <button @click="() => handleSearch()">搜索</button>
           </div>
         </section>
       </md-tab>
@@ -29,10 +29,6 @@
 <script>
 export default {
   name: 'SearchBox',
-  props: {
-    projectCategories: Array.of(Object) || null,
-    talentCategories: Array.of(Object) || null
-  },
   methods: {
     changeSearchProject (to) {
       this.searchProject = to

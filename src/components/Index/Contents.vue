@@ -13,9 +13,10 @@
         <md-tab v-for="(cate, i) in categories" :id="`${type}-${i}-outer`" :key="i"
                 :md-label="cate.title">
           <md-tabs class="md-primary">
-            <md-tab v-for="(sub, i) in cate.subcategories" :key="i" :md-label="sub.title">
+            <md-tab class="tab" v-for="(sub, i) in cate.subcategories" :key="i" :md-label="sub.title">
               <Talent v-if="type === 'talent'" v-for="(content, i) in sub.contents.slice(0,3)" :content="content" :key="i"/>
               <Project v-if="type !== 'talent'" v-for="(content, i) in sub.contents.slice(0,3)" :content="content" :key="i"/>
+              <p v-if="sub.contents.length === 0">Nothing Here</p>
             </md-tab>
           </md-tabs>
         </md-tab>
@@ -92,5 +93,8 @@ export default {
     height: 4rem;
     line-height: 3rem;
     box-sizing: border-box;
+  }
+  .tab {
+    height: 500px;
   }
 </style>

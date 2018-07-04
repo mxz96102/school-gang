@@ -84,6 +84,30 @@ const faked = (type, cateSet = []) => {
 }
 
 export default {
+  login (username, password) {
+    return new Promise((resolve, reject) => {
+      resolve({
+        token: 'fuuuuuck',
+        ...faked('user')
+      })
+    })
+  },
+  loginWithToken () {
+    return new Promise((resolve, reject) => {
+      resolve({
+        token: 'newfuck',
+        ...faked('user')
+      })
+    })
+  },
+  register (username, password) {
+    return new Promise((resolve, reject) => {
+      resolve({
+        token: 'regfuck',
+        ...faked('user')
+      })
+    })
+  },
   getAll () {
     let requestSuccess = arguments[arguments.length - 1]
     requestSuccess = typeof requestSuccess === 'boolean' ? requestSuccess : true
@@ -178,7 +202,7 @@ export default {
       })
     })
   },
-  updateUser (userID, user) {
+  updateUser (user) {
     // do somthing here
     return new Promise((resolve, reject) => {
       resolve({
@@ -192,30 +216,6 @@ export default {
     return new Promise((resolve, reject) => {
       resolve({
         msg: 'success'
-      })
-    })
-  },
-  login (username, password) {
-    return new Promise((resolve, reject) => {
-      resolve({
-        token: 'fuuuuuck',
-        ...faked('user')
-      })
-    })
-  },
-  loginWithToken () {
-    return new Promise((resolve, reject) => {
-      resolve({
-        token: 'newfuck',
-        ...faked('user')
-      })
-    })
-  },
-  register (username, password, email) {
-    return new Promise((resolve, reject) => {
-      resolve({
-        token: 'regfuck',
-        ...faked('user')
       })
     })
   }

@@ -7,12 +7,13 @@
       <router-link to="/"><img src="../assets/logo.png" alt="校园邦" class="logo"></router-link>
       <h3>登陆</h3>
       <form action="">
-        <input type="text" placeholder="用户名"><br>
-        <input type="password" placeholder="密码"><br>
+        <p v-if="msg">{{msg}}</p>
+        <input v-model="username" type="text" placeholder="用户名"><br>
+        <input v-model="password" type="password" placeholder="密码"><br>
         <p>
           <router-link to="register">注册账号</router-link>
         </p>
-        <input @click="login" type="submit" value="登陆">
+        <input @click="login" type="submit" value="登录">
       </form>
     </div>
   </div>
@@ -24,18 +25,29 @@ import request from '../request'
 export default {
   name: 'Login',
   data () {
-    return {}
+    return {
+      msg: '',
+      username: '',
+      password: ''
+    }
   },
   methods: {
     login (e) {
       e.preventDefault()
 
-      request.getUser(1111).then(
-        res => {
-          this.$root.user = res
+      request.login(this.username, this.password).then(res => {
+        this.msg = '获取状态...'
+        request.getProfile().then(profile => {
+          console.log(profile)
+          this.$root.user = profile
           this.$router.push('/')
-        }
-      )
+        }).catch(() => {
+          this.msg = '获取失败，请尝试重新登录...'
+        })
+      }).catch(e => {
+        console.error(e)
+        this.msg = '登录失败，请检查用户名密码尝试重新登录...'
+      })
     }
   }
 }

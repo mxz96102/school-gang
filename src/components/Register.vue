@@ -7,22 +7,46 @@
       <router-link to="/"><img src="../assets/logo.png" alt="校园邦" class="logo"></router-link>
       <h3>注册</h3>
       <form action="">
-        <input type="text" placeholder="用户名"><br>
-        <input type="text" placeholder="昵称"><br>
-        <input type="password" placeholder="密码"><br>
-        <input type="password" placeholder="确认密码"><br>
-        <p>已经有账号？去<router-link to="Login">登陆</router-link></p>
-        <input type="submit" value="注册">
+        <p v-if="msg">{{msg}}</p>
+        <input v-model="username" type="text" placeholder="用户名"><br>
+        <input v-model="password" type="password" placeholder="密码"><br>
+        <p>已经有账号？去
+          <router-link to="Login">登录</router-link>
+        </p>
+        <input @click="register" type="submit" value="注册">
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import request from '../request'
+
 export default {
   name: 'register',
+  methods: {
+    register (e) {
+      e.preventDefault()
+      request.register(this.username, this.password).then(res => {
+        this.msg = '获取状态...'
+        request.getProfile().then(({data}) => {
+          this.$root.user = data
+          this.$router.push('/')
+        }).catch(() => {
+          this.msg = '获取失败，请尝试重新登录...'
+        })
+      }).catch(e => {
+        console.error(e)
+        this.msg = '登录失败，请检查用户名密码尝试重新登录...'
+      })
+    }
+  },
   data () {
-    return {}
+    return {
+      msg: '',
+      username: '',
+      password: ''
+    }
   }
 }
 </script>
@@ -49,7 +73,7 @@ export default {
     overflow: hidden;
   }
 
-  .register .banner img{
+  .register .banner img {
     width: 625px;
     height: auto;
   }
@@ -87,7 +111,7 @@ export default {
     padding-right: 10%;
   }
 
-  .register .panel p a{
+  .register .panel p a {
     font-weight: bolder;
     text-decoration: none;
     color: #726dd1;

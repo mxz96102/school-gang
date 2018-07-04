@@ -5,7 +5,7 @@
       <h3>{{name}}</h3>
       <p>
         <span>技能：</span>
-        <span class="skill" v-for="(skill, i) in skills" :key="i">{{skill}}</span>
+        <span class="skill" v-for="(skill, i) in skills" :key="i">{{skill.name}}</span>
       </p>
       <p><span>项目：</span>{{experience.length}}个</p>
     </md-card>

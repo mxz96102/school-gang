@@ -1,3 +1,5 @@
-import fake from './fake'
+import request from './request'
 
-export default fake
+export default {
+  ...request
+}

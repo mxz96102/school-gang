@@ -1,12 +1,12 @@
 <template>
   <div class="contents">
-    <p>
-      <span>项目类别:</span>
-      <span v-for="(content, i) in contents" :class="cateShown.includes(content.title) ? 'included' : 'not-included'"
-            @click="() => handleFilterChange('cate', content.title)" :key="i+'cate'">{{content.title}}</span>
-    </p>
     <p v-if="type === 'project'">
-      <span>需求人员:</span>
+      <span>项目类别:</span>
+      <span v-for="(content, i) in cates" :class="cateShown.includes(content) ? 'included' : 'not-included'"
+            @click="() => handleFilterChange('cate', content)" :key="i+'cate'">{{content}}</span>
+    </p>
+    <p>
+      <span>人员技能:</span>
       <span v-for="(content, i) in needs" :class="needsShown.includes(content) ? 'included' : 'not-included'"
             @click="() => handleFilterChange('needs', content)" :key="i+'needs'">{{content}}</span>
     </p>
@@ -33,8 +33,8 @@ export default {
   mounted () {
     fetcher.getAllSkills()
       .then(data => {
-        const _needs = this.type === 'project' ? data : []
-        this.needs = _needs
+        const _needs = data
+        this.needs = _needs.map(v => v.name)
         this.needsShown = this.propFilter ? _needs.filter(n => n.includes(this.propFilter)) : []
       })
       .catch(e => {
@@ -56,6 +56,7 @@ export default {
   data () {
     return {
       needs: [],
+      cates: ['logo 设计', '游戏设计', '网页设计', '短视频制作', '文件资料翻译', '微信公众号开发', '游戏开发', 'android 软件开发', '网页开发', 'ios 软件开发'],
       needsShown: [],
       cateShown: this.propFilter ? this.contents.map(c => c.title).filter(title => title.includes(this.propFilter)) : []
     }
@@ -63,13 +64,16 @@ export default {
   computed: {
     flattenedContents () {
       return this.contents
-        .filter(c => this.cateShown.length === 0 || this.cateShown.includes(c.title))
-        .reduce((acc, c) => acc.concat(c.contents), [])
+        .filter(c => this.type !== 'project' ? true : this.cateShown.length === 0 || this.cateShown.includes(c.title))
+        .reduce((acc, c) => this.type !== 'project' ? acc.concat(c) : acc.concat(c.contents), [])
         // .filter(c => this.ddlShown.includes(c.ddl))
-        .filter(c => this.type !== 'project' ? true : c.needs
-          .filter(n => n.number > 0)
-          .map(n => n.name)
-          .reduce((a, v) => a || this.needsShown.length === 0 || this.needsShown.includes(v), false))
+        .filter(c => this.type !== 'project'
+          ? c.skills
+            .reduce((a, v) => a || this.needsShown.length === 0 || this.needsShown.includes(v), false)
+          : c.needs
+            .filter(n => n.number > 0)
+            .map(n => n.name)
+            .reduce((a, v) => a || this.needsShown.length === 0 || this.needsShown.includes(v), false))
     }
   }
 }

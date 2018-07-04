@@ -4,7 +4,7 @@
     <md-content>
       <MenuBar></MenuBar>
       <md-card class="content">
-        <Project v-for="(project, i) in user.experience" :content="project" :key="i"/>
+        <Project v-for="(project, i) in projects" v-if="shouldShow(project)" :content="project" :key="i" />
       </md-card>
     </md-content>
   </div>
@@ -19,16 +19,33 @@ import request from '../../request'
 export default {
   name: 'ProfileProject',
   components: {MenuBar, NavBar, Project},
-  data () {
-    request.getUser(1111).then(
-      res => {
-        console.log(res)
-        this.user = res
+  methods: {
+    shouldShow (project) {
+      switch (this.$route.params.type) {
+        case 'join':
+          return !project.isCreator && !project.finished
+        case 'publish':
+          return project.isCreator
+        case 'complete':
+          return project.finished
+        default:
+          return true
       }
-    )
+    }
+  },
+  data () {
+    request.getMyProject().then(res => {
+      this.projects = res.map(project => {
+        return {
+          ...project,
+          isCreator: project.from.uid === this.$root.user.uid,
+          finished: false
+        }
+      })
+    })
 
     return {
-      user: {}
+      projects: []
     }
   }
 }
