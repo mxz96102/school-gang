@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     name () {
-      return this.content.name.slice(0, 3)
+      return this.content.name
     },
     skills () {
       return this.content.skills

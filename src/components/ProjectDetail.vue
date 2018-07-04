@@ -33,14 +33,14 @@
       <Loading />
     </div>
     <md-dialog-confirm
-      v-if="nowNeed.number"
+      v-if="current.number"
       :md-active.sync="active"
-      :md-title="'确认申请：' + nowNeed.name"
+      :md-title="'确认申请：' + current.name"
       md-content="请确认是否申请当前岗位"
       md-confirm-text="申请"
       md-cancel-text="取消"
-      @md-cancel="() => active = false"
-      @md-confirm="() => applyProject()" />
+      @md-cancel="() => cancel()"
+      @md-confirm="() => applyProject(current.uid)" />
   </div>
 </template>
 
@@ -61,23 +61,26 @@ export default {
       this.$router.push('error/404')
     })
   },
-  methods: {
-    applyProject () {
-      this.active = false
-    }
-  },
   data () {
     return {
       uid: this.$route.params.projectID,
       project: null,
-      nowNeed: {},
+      current: {},
       active: false
     }
   },
   methods: {
-    apply (a) {
-      this.nowNeed = a
+    apply (c) {
       this.active = true
+      this.current = c
+    },
+    cancel () {
+      this.current = {}
+      this.active = false
+    },
+    applyProject (id) {
+      this.active = false
+      fetcher.requestProject(this.project.uid, id)
     }
   }
 }

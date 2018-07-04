@@ -6,8 +6,8 @@
       <UserInfo />
     </nav>
     <SearchBox />
-    <ContentsWithFilter :contents="talents" type="talent"  />
     <Contents v-bind="projects" type="project" />
+    <ContentsWithFilter :contents="talents" type="talent"  />
   </div>
 </template>
 
@@ -33,7 +33,6 @@ export default {
   mounted () {
     fetcher.getAll()
       .then(data => {
-        console.log(data)
         this.talents = data.talents
         this.projects = data.projects
       })

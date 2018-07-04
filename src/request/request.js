@@ -140,7 +140,6 @@ const fetcher = {
         axiosWrap.get('/project'),
         axiosWrap.get('/talent')
       ]).then(([projects, talents]) => {
-        console.log(projects.data, talents.data)
         resolve(
           {
             talents: talents.data.map(mapTalentForward),
@@ -249,13 +248,6 @@ const fetcher = {
         .catch(e => reject(e))
     })
   },
-  applyProject (project) {
-    return new Promise((resolve, reject) => {
-      axiosWrap.get(`/project/${project.uid}/request`)
-        .then(({data}) => resolve(data))
-        .catch(e => reject(e))
-    })
-  },
   addSkill (skill) {
     return new Promise((resolve, reject) => {
       axiosWrap.post('/profile/skill', {name: skill})
@@ -277,15 +269,35 @@ const fetcher = {
         .catch(e => reject(e))
     })
   },
-  getMessage () {
+  getRequest () {
     return new Promise((resolve, reject) => {
       axiosWrap.get('/request')
+        .then(({data}) => {
+          resolve(data.map(({user, ...other}) => ({...other, user: mapTalentForward(user)})))
+        })
+        .catch(e => reject(e))
+    })
+  },
+  requestProject (projectId, needId) {
+    return new Promise((resolve, reject) => {
+      axiosWrap.post(`/project/${projectId}/request`, {need: needId})
         .then(({data}) => resolve(data))
         .catch(e => reject(e))
     })
   },
-  doSth () {
-    // do something
+  acceptRequest (projectId, requestId) {
+    return new Promise((resolve, reject) => {
+      axiosWrap.put(`/project/${projectId}/request/${requestId}`)
+        .then(({data}) => resolve(data))
+        .catch(e => reject(e))
+    })
+  },
+  rejectRequest (projectId, requestId) {
+    return new Promise((resolve, reject) => {
+      axiosWrap.delete(`/project/${projectId}/request/${requestId}`)
+        .then(({data}) => resolve(data))
+        .catch(e => reject(e))
+    })
   }
 }
 

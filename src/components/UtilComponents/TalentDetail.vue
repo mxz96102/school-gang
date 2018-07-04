@@ -53,7 +53,7 @@ export default {
       return this.content.img
     },
     name () {
-      return this.content.name.slice(0, 3)
+      return this.content.name
     },
     intro () {
       return this.content.intro

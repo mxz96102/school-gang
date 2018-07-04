@@ -1,15 +1,21 @@
 <template>
-  <div class="contents">
-    <p v-if="type === 'project'">
-      <span>项目类别:</span>
-      <span v-for="(content, i) in cates" :class="cateShown.includes(content) ? 'included' : 'not-included'"
-            @click="() => handleFilterChange('cate', content)" :key="i+'cate'">{{content}}</span>
-    </p>
-    <p>
-      <span>人员技能:</span>
-      <span v-for="(content, i) in needs" :class="needsShown.includes(content) ? 'included' : 'not-included'"
-            @click="() => handleFilterChange('needs', content)" :key="i+'needs'">{{content}}</span>
-    </p>
+  <div class="contents md-card">
+    <div class="content-header">
+      <p v-if="type === 'project'">
+        <span>项目类别:</span>
+        <span @click="() => this.needsShown=[]"
+              :class="this.needsShown.length===0? 'included' : 'not-included'">all</span>
+        <span v-for="(content, i) in cates" :class="cateShown.includes(content) ? 'included' : 'not-included'"
+              @click="() => handleFilterChange('cate', content)" :key="i+'cate'">{{content}}</span>
+      </p>
+      <p>
+        <span>人员技能:</span>
+        <span @click="() => this.needsShown=[]"
+              :class="this.needsShown.length===0? 'included' : 'not-included'">all</span>
+        <span v-for="(content, i) in needs" :class="needsShown.includes(content) ? 'included' : 'not-included'"
+              @click="() => handleFilterChange('needs', content)" :key="i+'needs'">{{content}}</span>
+      </p>
+    </div>
     <div v-if="!flattenedContents.length">这里什么都没有</div>
     <div v-if="type === 'talent'">
       <Talent v-for="(talent, i) in flattenedContents" :content="talent" :key="i"></Talent>
@@ -67,13 +73,11 @@ export default {
         .filter(c => this.type !== 'project' ? true : this.cateShown.length === 0 || this.cateShown.includes(c.title))
         .reduce((acc, c) => this.type !== 'project' ? acc.concat(c) : acc.concat(c.contents), [])
         // .filter(c => this.ddlShown.includes(c.ddl))
-        .filter(c => this.type !== 'project'
-          ? c.skills
-            .reduce((a, v) => a || this.needsShown.length === 0 || this.needsShown.includes(v), false)
-          : c.needs
-            .filter(n => n.number > 0)
+        .filter(c => this.needsShown.length === 0 || (this.type !== 'project'
+          ? c.skills.reduce((a, v) => a || this.needsShown.includes(v.name), false)
+          : c.needs.filter(n => n.number > 0)
             .map(n => n.name)
-            .reduce((a, v) => a || this.needsShown.length === 0 || this.needsShown.includes(v), false))
+            .reduce((a, v) => a || this.needsShown.includes(v), false)))
     }
   }
 }
@@ -92,8 +96,17 @@ export default {
     color: white;
   }
 
+  .content-header {
+    width: 100%;
+    padding: 0.5rem 1.5rem;
+    height: 4rem;
+    line-height: 3rem;
+    box-sizing: border-box;
+  }
+
   .contents {
     width: 80%;
+    min-height: 800px;
     margin: 3rem auto;
     text-align: center;
   }
