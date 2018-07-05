@@ -21,7 +21,7 @@ export default {
       .getAll()
       .then(data => {
         // this.projects = data.projects.categories
-        this.talents = data.talents.categories.reduce((ret, cate) => ret.concat(cate.subcategories), [])
+        this.talents = data.talents
       })
       .catch(e => {
       })

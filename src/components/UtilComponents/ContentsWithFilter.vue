@@ -34,20 +34,22 @@ import fetcher from '../../request'
 
 export default {
   name: 'ContentsWithFilter',
-  components: {Loading, Project, Talent},
-  props: {contents: Array, type: String, propFilter: String},
-  mounted () {
-    fetcher.getAllSkills()
+  components: { Loading, Project, Talent },
+  props: { contents: Array, type: String, propFilter: String },
+  mounted() {
+    fetcher
+      .getAllSkills()
       .then(data => {
         const _needs = data
         this.needs = _needs.map(v => v.name)
-        this.needsShown = this.propFilter ? _needs.filter(n => n.includes(this.propFilter)) : []
+        this.needsShown = this.propFilter
+          ? _needs.map(v => v.name).filter(n => n.includes(this.propFilter))
+          : []
       })
-      .catch(e => {
-      })
+      .catch(e => {})
   },
   methods: {
-    handleFilterChange (type, value) {
+    handleFilterChange(type, value) {
       const toChange = {
         cate: this.cateShown,
         needs: this.needsShown
@@ -59,25 +61,63 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       needs: [],
-      cates: ['logo 设计', '游戏设计', '网页设计', '短视频制作', '文件资料翻译', '微信公众号开发', '游戏开发', 'android 软件开发', '网页开发', 'ios 软件开发'],
+      cates: [
+        'logo 设计',
+        '游戏设计',
+        '网页设计',
+        '短视频制作',
+        '文件资料翻译',
+        '微信公众号开发',
+        '游戏开发',
+        'android 软件开发',
+        '网页开发',
+        'ios 软件开发'
+      ],
       needsShown: [],
-      cateShown: this.propFilter ? this.contents.map(c => c.title).filter(title => title.includes(this.propFilter)) : []
+      cateShown:
+        this.type === 'project'
+          ? this.propFilter
+            ? this.contents
+                .map(c => c.title)
+                .filter(title => title.includes(this.propFilter))
+            : []
+          : []
     }
   },
   computed: {
-    flattenedContents () {
-      return this.contents
-        .filter(c => this.type !== 'project' ? true : this.cateShown.length === 0 || this.cateShown.includes(c.title))
-        .reduce((acc, c) => this.type !== 'project' ? acc.concat(c) : acc.concat(c.contents), [])
-        // .filter(c => this.ddlShown.includes(c.ddl))
-        .filter(c => this.needsShown.length === 0 || (this.type !== 'project'
-          ? c.skills.reduce((a, v) => a || this.needsShown.includes(v.name), false)
-          : c.needs.filter(n => n.number > 0)
-            .map(n => n.name)
-            .reduce((a, v) => a || this.needsShown.includes(v), false)))
+    flattenedContents() {
+      return (
+        this.contents
+          .filter(
+            c =>
+              this.type !== 'project'
+                ? true
+                : this.cateShown.length === 0 ||
+                  this.cateShown.includes(c.title)
+          )
+          .reduce(
+            (acc, c) =>
+              this.type !== 'project' ? acc.concat(c) : acc.concat(c.contents),
+            []
+          )
+          // .filter(c => this.ddlShown.includes(c.ddl))
+          .filter(
+            c =>
+              this.needsShown.length === 0 ||
+              (this.type !== 'project'
+                ? c.skills.reduce(
+                    (a, v) => a || this.needsShown.includes(v.name),
+                    false
+                  )
+                : c.needs
+                    .filter(n => n.number > 0)
+                    .map(n => n.name)
+                    .reduce((a, v) => a || this.needsShown.includes(v), false))
+          )
+      )
     }
   }
 }
@@ -85,38 +125,38 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  span {
-    padding: .3em;
-    cursor: pointer;
-    margin: .5rem;
-  }
+span {
+  padding: 0.3em;
+  cursor: pointer;
+  margin: 0.5rem;
+}
 
-  .included {
-    background-color: cornflowerblue;
-    color: white;
-  }
+.included {
+  background-color: cornflowerblue;
+  color: white;
+}
 
-  .content-header {
-    width: 100%;
-    padding: 0.5rem 1.5rem;
-    /* height: 4rem; */
-    line-height: 3rem;
-    box-sizing: border-box;
-  }
+.content-header {
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  /* height: 4rem; */
+  line-height: 3rem;
+  box-sizing: border-box;
+}
 
-  .contents {
-    width: 80%;
-    min-height: 800px;
-    margin: 3rem auto;
-    text-align: center;
-  }
+.contents {
+  width: 80%;
+  min-height: 800px;
+  margin: 3rem auto;
+  text-align: center;
+}
 
-  .md-tab {
-    padding: 0 0;
-    background: #e6ecf0;
-  }
+.md-tab {
+  padding: 0 0;
+  background: #e6ecf0;
+}
 
-  .md-tab .md-tab {
-    padding: 1rem;
-  }
+.md-tab .md-tab {
+  padding: 1rem;
+}
 </style>

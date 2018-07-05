@@ -17,7 +17,7 @@
 <script>
 export default {
   name: 'SearchBar',
-  props: ['searched'],
+  props: ['searched', 'sp'],
   methods: {
     choose (type) {
       this.searchProject = type === '项目'
@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       keyword: this.searched,
-      searchProject: true
+      searchProject: this.sp
     }
   }
 }

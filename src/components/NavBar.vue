@@ -1,7 +1,7 @@
 <template>
   <nav class="md-card">
     <router-link to="/"><img src="../assets/logo.png" alt="校园邦" class="logo"></router-link>
-    <SearchBar :searched="searched" />
+    <SearchBar :searched="searched" :sp="searchProject" />
     <UserInfo />
   </nav>
 </template>
@@ -15,6 +15,7 @@ export default {
   props: {
     avatar: String,
     name: String,
+    searchProject: Boolean,
     searched: {
       type: String,
       default: ''

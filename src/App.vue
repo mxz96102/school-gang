@@ -64,4 +64,7 @@ export default {
     transition: color .13s linear;
     color: white;
   }
+  p {
+    word-break: break-all
+  }
 </style>
