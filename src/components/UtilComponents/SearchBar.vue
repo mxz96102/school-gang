@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <md-menu md-direction="bottom-start">
-      <md-button md-menu-trigger>{{searchProject ? '项目' : '人才'}}</md-button>
+      <md-button md-menu-trigger>{{searchProject ? '项目' : '人才'}}<img src='../../assets/baseline-keyboard_arrow_down-24px.svg' /></md-button>
       <md-menu-content>
         <md-menu-item @click="() => choose('项目')">项目</md-menu-item>
         <md-menu-item @click="() => choose('人才')">人才</md-menu-item>
