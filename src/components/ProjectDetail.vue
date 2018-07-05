@@ -19,7 +19,7 @@
         <h4>发布人</h4>
         <p class="from">{{project.from.name}}</p>
         <h4>截止日期</h4>
-        <p class="ddl">{{project.ddl}}</p>
+        <p class="ddl">{{ddl}}</p>
         <h4 class="needs-title"> 需求人员 </h4>
         <md-list>
           <md-list-item v-for="(need, i) in project.needs" @click="apply(need)" :key="i">
@@ -49,6 +49,7 @@ import fetcher from '../request'
 import Loading from '@/components/UtilComponents/Loading'
 import ParentLink from '@/components/UtilComponents/ParentLink'
 import NavBar from '@/components/NavBar'
+import moment from 'moment'
 
 export default {
   name: 'ProjectDetail',
@@ -81,6 +82,11 @@ export default {
     applyProject (id) {
       this.active = false
       fetcher.requestProject(this.project.uid, id)
+    }
+  },
+  computed: {
+    ddl () {
+      return moment(this.project.ddl).format('YYYY/MM/DD')
     }
   }
 }

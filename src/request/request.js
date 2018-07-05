@@ -6,7 +6,6 @@ const mapProjectForward = (
   /* eslint-disable camelcase */
   {
     category,
-    create_time,
     creator_id,
     creator_name,
     finish_time,
@@ -34,13 +33,13 @@ const mapProjectForward = (
       name: creator_name,
       uid: creator_id
     },
-    ddl: finish_time,
+    ddl: parseInt(finish_time),
     needs: members_needed.map(({skill, id, remain_number}) => ({name: skill, number: remain_number, uid: id})),
     detail: intro
   }
 }
 // eslint-disable-next-line
-const mapProjectBack = ({ddl, detail, ...other}) => ({...other, finish_time: ddl, intro: detail})
+const mapProjectBack = ({ddl, detail, ...other}) => ({...other, finish_time: ''+ddl, intro: detail})
 const mapTalentForward = (
   {
     experience,
@@ -51,7 +50,7 @@ const mapTalentForward = (
   experience: experience.map(mapProjectForward)
 })
 // eslint-disable-next-line no-unused-vars
-const mapTalentBack = raw => raw
+const mapTalentBack = ({ wx, phone, ...other }) => ({ ...other, wechat: wx, phonenumber: phone })
 
 let axiosWrap = axios.create({
   baseURL: 'http://youpaihust.com/api/',
@@ -110,7 +109,7 @@ const fetcher = {
     return new Promise((resolve, reject) => {
       axiosWrap.get('/profile')
         .then(({data}) => {
-          resolve(mapProjectBack(data))
+          resolve(mapTalentForward(data))
           setData(KEYS.NAME, data.name)
           setData(KEYS.IMG, data.img)
           setData(KEYS.UID, data.uid)
@@ -211,7 +210,7 @@ const fetcher = {
   getUser (uid) {
     return new Promise((resolve, reject) => {
       axiosWrap.get(`/talent/${uid}`)
-        .then(({data}) => resolve(mapProjectForward(data)))
+        .then(({data}) => resolve(mapTalentForward(data)))
         .catch(e => reject(e))
     })
   },
@@ -221,7 +220,7 @@ const fetcher = {
         .then(({data}) => {
           axios.all(project.needs.map(
             ({name, number}) => axiosWrap.post(`/project/${data.id}/member/needs`, {
-              name,
+              skill: name,
               number
             })
           )).then(() => resolve(data.id))
@@ -241,7 +240,7 @@ const fetcher = {
   },
   updateUser (user) {
     return new Promise((resolve, reject) => {
-      axiosWrap.put(`/profile`, mapProjectBack(user))
+      axiosWrap.put(`/profile`, mapTalentBack(user))
         .then(({data}) => {
           resolve(data)
         })

@@ -20,7 +20,7 @@
         </md-field>
         <md-field>
           <label>简介图</label>
-          <md-file v-model="uploadImg" accept="image/*" />
+          <md-input v-model="avatar_url"></md-input>
         </md-field>
         <div>
           <md-chip
@@ -92,7 +92,7 @@ export default {
       msg: null,
       uploadImg: null,
       /* eslint-disable-next-line */
-      avatar_url: 'https://pic4.zhimg.com/v2-46a300297237a815f20a9d1a9babcef5_b.jpg',
+      avatar_url: '',
       project: {
         ddl: new Date(),
         needs: [],

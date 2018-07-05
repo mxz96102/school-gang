@@ -104,6 +104,7 @@ export default {
   components: {MenuBar, NavBar},
   methods: {
     updateUser () {
+      console.log(this.user)
       request.updateUser(this.user)
         .then(data => {
           this.$root.user = data

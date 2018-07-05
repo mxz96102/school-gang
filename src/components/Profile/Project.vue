@@ -39,7 +39,7 @@ export default {
         return {
           ...project,
           isCreator: project.from.uid === this.$root.user.uid,
-          finished: false
+          finished: project.ddl < Date.now()
         }
       })
     })

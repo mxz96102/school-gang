@@ -99,7 +99,7 @@ export default {
   .content-header {
     width: 100%;
     padding: 0.5rem 1.5rem;
-    height: 4rem;
+    /* height: 4rem; */
     line-height: 3rem;
     box-sizing: border-box;
   }
