@@ -36,7 +36,7 @@ export default {
   name: 'ContentsWithFilter',
   components: { Loading, Project, Talent },
   props: { contents: Array, type: String, propFilter: String },
-  mounted() {
+  mounted () {
     fetcher
       .getAllSkills()
       .then(data => {
@@ -49,7 +49,7 @@ export default {
       .catch(e => {})
   },
   methods: {
-    handleFilterChange(type, value) {
+    handleFilterChange (type, value) {
       const toChange = {
         cate: this.cateShown,
         needs: this.needsShown
@@ -61,7 +61,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       needs: [],
       cates: [
@@ -81,14 +81,14 @@ export default {
         this.type === 'project'
           ? this.propFilter
             ? this.contents
-                .map(c => c.title)
-                .filter(title => title.includes(this.propFilter))
+              .map(c => c.title)
+              .filter(title => title.includes(this.propFilter))
             : []
           : []
     }
   },
   computed: {
-    flattenedContents() {
+    flattenedContents () {
       return (
         this.contents
           .filter(
@@ -108,14 +108,11 @@ export default {
             c =>
               this.needsShown.length === 0 ||
               (this.type !== 'project'
-                ? c.skills.reduce(
-                    (a, v) => a || this.needsShown.includes(v.name),
-                    false
-                  )
+                ? c.skills.reduce((a, v) => a || this.needsShown.includes(v.name), false)
                 : c.needs
-                    .filter(n => n.number > 0)
-                    .map(n => n.name)
-                    .reduce((a, v) => a || this.needsShown.includes(v), false))
+                  .filter(n => n.number > 0)
+                  .map(n => n.name)
+                  .reduce((a, v) => a || this.needsShown.includes(v), false))
           )
       )
     }

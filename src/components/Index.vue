@@ -1,18 +1,13 @@
 <template>
   <div class="index">
-    <nav class="md-card">
-      <img src="../assets/logo.png" alt="校园邦" class="logo">
-      <div class="flex"></div>
-      <UserInfo />
-    </nav>
-    <SearchBox />
+    <NavBar />
     <Contents v-bind="projects" type="project" />
     <ContentsWithFilter :contents="talents" type="talent"  />
   </div>
 </template>
 
 <script>
-import SearchBox from './Index/SearchBox'
+import NavBar from './NavBar'
 import Contents from './Index/Contents'
 import fetcher from '../request'
 import UserInfo from '@/components/UtilComponents/UserInfo'
@@ -20,7 +15,7 @@ import ContentsWithFilter from '@/components/UtilComponents/ContentsWithFilter'
 
 export default {
   name: 'Index',
-  components: {ContentsWithFilter, UserInfo, SearchBox, Contents},
+  components: {ContentsWithFilter, UserInfo, NavBar, Contents},
   data () {
     // const data = fetcher.getAll(true).then()
     return {
