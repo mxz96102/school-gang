@@ -69,7 +69,7 @@ export default {
     shouldShow (project) {
       switch (this.$route.params.type) {
         case 'join':
-          return !project.isCreator && !project.finished
+          return !project.isCreator
         case 'publish':
           return project.isCreator
         case 'complete':
