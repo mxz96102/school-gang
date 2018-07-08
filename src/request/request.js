@@ -13,12 +13,14 @@ const mapProjectForward = (
     img,
     intro,
     members_needed,
+    members,
     name,
     subcategory
   }
 ) => {
   return {
     name,
+    members,
     img,
     uid: id,
     parents: {
@@ -294,6 +296,13 @@ const fetcher = {
   rejectRequest (projectId, requestId) {
     return new Promise((resolve, reject) => {
       axiosWrap.delete(`/project/${projectId}/request/${requestId}`)
+        .then(({data}) => resolve(data))
+        .catch(e => reject(e))
+    })
+  },
+  deleteMember (memberID, projectID) {
+    return new Promise((resolve, reject) => {
+      axiosWrap.delete(`/project/${projectID}/member/${memberID}`)
         .then(({data}) => resolve(data))
         .catch(e => reject(e))
     })

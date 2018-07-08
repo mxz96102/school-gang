@@ -174,7 +174,8 @@ export default {
 
 <style scoped>
   .md-content {
-    width: 900px;
+    width: 80%;
+    min-width: 900px;
     margin: 1rem auto;
     display: flex;
   }
